@@ -3,10 +3,10 @@
 #include "crc32.h"
 #include "stdio.h"
 int main() {
-       	unsigned char dadaBuffer[] = "Hello CRC!";
+    unsigned char dadaBuffer[] = "Hello CRC!";
         
 	unsigned char crc8Result;
-    	crc8Init(&crc8Result);
+   	crc8Init(&crc8Result);
 	crc8Update_Direct(&crc8Result, dadaBuffer, sizeof(dadaBuffer)-1);
 	crc8Finish(&crc8Result);
 	printf("crc8 direct result = %x \n",crc8Result);
@@ -15,13 +15,13 @@ int main() {
 	crc8Init(&crc8Result);
 	crc8Update(&crc8Result, dadaBuffer, sizeof(dadaBuffer)-1);
 	crc8Finish(&crc8Result);
-       	printf("crc8 use table result = %x \n",crc8Result);
+    printf("crc8 use table result = %x \n",crc8Result);
 
 	unsigned short crc16Result;
 	init_crc16_table();
-    	crc16Init(&crc16Result);
-        crc16Update(&crc16Result, dadaBuffer, sizeof(dadaBuffer)-1);
-       	crc16Finish(&crc16Result);
+    crc16Init(&crc16Result);
+    crc16Update(&crc16Result, dadaBuffer, sizeof(dadaBuffer)-1);
+    crc16Finish(&crc16Result);
 	printf("crc16 result = %x \n",crc16Result);
 	
 	unsigned int crc32Result;
@@ -32,3 +32,4 @@ int main() {
 	printf("crc32 result = %x \n",crc32Result);
 	return 0;
 }
+
