@@ -1,9 +1,6 @@
-##DDT
-Digital Data Transmition,CRC
-
-
-##CRC32 CRC16 CRC8
+###CRC32 CRC16 CRC8
 use table
+
 ###Usage:
 
 	#include "crc8.h"
