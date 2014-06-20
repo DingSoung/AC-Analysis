@@ -1,5 +1,5 @@
-#ifndef __ELECTRICITY_PARAMETERS_H
-#define __ELECTRICITY_PARAMETERS_H
+#ifndef __DSP_H
+#define __DSP_H
 
 #include "stdio.h"
 
