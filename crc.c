@@ -69,18 +69,34 @@ unsigned long crc32tab[] = {
         0xB40BBE37 0xC30C8EA1 0x5A05DF1B 0x2D02EF8D
 };
 
-void crc32Init(unsigned long *pCrc32){
+static void init_crc_table(void)  {  
+    unsigned int c;  
+    unsigned int i, j;  
+      
+    for (i = 0; i < 256; i++) {  
+        c = (unsigned int)i;  
+        for (j = 0; j < 8; j++) {  
+            if (c & 1)  
+                c = 0xedb88320L ^ (c >> 1);  
+            else  
+                c = c >> 1;  
+        }  
+        crc_table[i] = c;  
+    }
+}  
+
+void crc32Init(unsigned long *pCrc32) {
         *pCrc32 = 0xFFFFFFFF;
 }
 
-void crc32Update(unsigned long *pCrc32, unsigned char *pData, unsigned long uSize){
+void crc32Update(unsigned long *pCrc32, unsigned char *pData, unsigned long uSize) {
         unsigned long i = 0;
         for(i = 0; i < uSize; i++)
                 *pCrc32 = ((*pCrc32) >> 8) ^ crc32tab[(pData[i]) ^ ((*pCrc32) & 0x000000FF)];
 }
 
 // Make the final adjustment
-void crc32Finish(unsigned long *pCrc32){
+void crc32Finish(unsigned long *pCrc32) {
         *pCrc32 = ~(*pCrc32);
 }
 
@@ -88,8 +104,11 @@ void crc32Finish(unsigned long *pCrc32){
 ex:
 void main(){
  	unsigned int CRC32BIN;
+ 	init_crc_table();
 	crc32Init(&CRC32BIN);
-	crc32Update(&CRC32BIN, pBuffer, Length + 1);
+	while( ... ) {
+		crc32Update(&CRC32BIN, pBuffer, Length + 1);
+	}
 	crc32Finish(&CRC32BIN);
 }       
 */
