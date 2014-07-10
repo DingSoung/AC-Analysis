@@ -1,7 +1,14 @@
-﻿#include "crc.h"
-
-// CRC-32 table for the following polynominal:
-// X^32+X^26+X^23+X^22+X^16+X^12+X^11+X^10+X^8+X^7+X^5+X^4+X^2+X+1
+/*
+Standard CRC-32 generator polynomial:
+       Name               : CRC-32 Standard
+       Standards          : ISO 3309, ITU-T V.42, ANSI X3.66, FIPS PUB 71
+       References         : ZIP, RAR, Ethernet, AUTODIN II, FDDI
+       Initializing value : FFFFFFFF
+       Finalizing value   : FFFFFFFF
+       Polynomial value   : 04C11DB7 (Mirror value = EDB88320)
+       Polynom            : x^32 + x^26 + x^23 + x^22 + x^16 + x^12 + x^11 +
+                            x^10 + x^8 + x^7 + x^5 + x^4 + x^2 + x + 1
+*/
 unsigned long crc32tab[] = {
         0x00000000 0x77073096 0xEE0E612C 0x990951BA
         0x076DC419 0x706AF48F 0xE963A535 0x9E6495A3
@@ -98,6 +105,7 @@ void crc32Update(unsigned long *pCrc32, unsigned char *pData, unsigned long uSiz
 // Make the final adjustment
 void crc32Finish(unsigned long *pCrc32) {
         *pCrc32 = ~(*pCrc32);
+        //*pCrc32 = *pCrc32 ^ 0xFFFFFFFF
 }
 
 /*
