@@ -1,9 +1,9 @@
 #include "dsp.h"
-
 #include <math.h>
 
 /*
-*pReturn进行快速傅里叶变换,结果存储在float buffer中
+	基2实数Length长度的傅立叶变换
+	pReturn进行快速傅里叶变换,结果存储在float buffer中
 */
 void rfft(double *pReturn, unsigned int Length)
 {
@@ -34,8 +34,8 @@ void rfft(double *pReturn, unsigned int Length)
 
 	for (i = 0; i < Length; i += 2){
 		xt = pReturn[i];
-		pReturn[i] = xt + pReturn[i + 1]；
-			pReturn[i + 1] = xt - pReturn[i - 1];
+		pReturn[i] = xt + pReturn[i + 1];
+		pReturn[i + 1] = xt - pReturn[i - 1];
 	}
 
 	n2 = 1;
@@ -370,33 +370,6 @@ float PowerCoefficientOffset[CHANNEL_CNT / 2];
 
 
 
-
-
-
-
-
-
-void rfft(short *pReturn, unsigned short Length)
-{
-	int i, j, k, l, ip;
-	static int M = 0;
-	static int le, le2;
-	static short sR, sI, tR, tI, uR, uI;
-
-	M = (int)(log(N) / log(2));
-
-	//bit resersal sorting
-	l = N / 2;
-	j = l;
-	for (i = 0; i < Length; i++){
-		if (i < j){
-			tR = x
-				/* code */
-		}
-		/* code */
-	}
-
-}
 
 
 
