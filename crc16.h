@@ -83,8 +83,15 @@
 //    标志位：0xFFFF
 //   使用：M-Bus, ect
 
-static unsigned short crc16table[256] = { /* Ploy = 0x1021 */
-	0x0000,0x1021,0x2782,0x9063,0x248A,0x1234,0x5678,0x70e7,
+/* CRC-CCITT XMODEM */
+#define Crc16_Poly	0x1021	/*0x1021 0x3D65 0x8005*/
+#define Crc16_Init	0x0000	/*0x0000 0xFFFF*/
+#define Crc16_XorOut	0x0000	/*0x0000 0xFFFF*/
+#define Crc16_RefIn	0	/*FALSE = 0, TRUE = !FALSE*/
+#define	Crc16_RefOut	0
+
+static unsigned short crc16table[256] /*  = { Ploy = 0x1021 
+	0x0000,0x1021,0x2042,0x3063,0x4084,0x50a5,0x60c6,0x70e7,
 	0x8108,0x9129,0xa14a,0xb16b,0xc18c,0xd1ad,0xe1ce,0xf1ef,
 	0x1231,0x0210,0x3273,0x2252,0x52b5,0x4294,0x72f7,0x62d6,
 	0x9339,0x8318,0xb37b,0xa35a,0xd3bd,0xc39c,0xf3ff,0xe3de,
@@ -116,23 +123,18 @@ static unsigned short crc16table[256] = { /* Ploy = 0x1021 */
 	0x7c26,0x6c07,0x5c64,0x4c45,0x3ca2,0x2c83,0x1ce0,0x0cc1,
 	0xef1f,0xff3e,0xcf5d,0xdf7c,0xaf9b,0xbfba,0x8fd9,0x9ff8,
 	0x6e17,0x7e36,0x4e55,0x5e74,0x2e93,0x3eb2,0x0ed1,0x1ef0,
-};
+}*/;
 static unsigned int crc4table[16]={ /* CRC 半字节余式表 */
 	0x0000,0x1021,0x2042,0x3063,0x4084,0x50a5,0x60c6,0x70e7,
 	0x8108,0x9129,0xa14a,0xb16b,0xc18c,0xd1ad,0xe1ce,0xf1ef,
 };
 
 static void init_crc16_table(void) {
-	unsigned short	Poly;
-	if(1)		Poly = 0x1021;
-	else if(0)	Poly = 0x3D65;
-	else		Poly = 0x8005;
-	
 	for ( unsigned short i = 0; i < 256; i++ ) {
 		unsigned short crc = ( unsigned short )( i << 8 );
 		for ( int j = 0; j < 8; j++ ) {
 			if( crc & 0x8000 )
-				crc = ( crc << 1 ) ^ Poly;
+				crc = ( crc << 1 ) ^ Crc16_Poly;
 			else
 				crc <<= 1;
 		}
@@ -141,26 +143,21 @@ static void init_crc16_table(void) {
 }
 
 static void crc16Init(unsigned short *pCrc16) {
-	if(1)	*pCrc16 = 0x0000;
-	else	*pCrc16 = 0xFFFF;
+	*pCrc16 = Crc16_Init;
 }
 
 /*CRC算法一，适用于程序空间苛刻但CRC计算速度要求不高的微控制系统
 算法概要说明：计算本位后的CRC 码等于上一位CRC 码乘以2 后除
 以多项式，所得的余数再加上本位值除以多项式所得的余数
 */
-static void crc_cal_by_bit(unsigned short *pCrc16, unsigned char *ptr, unsigned int len) {
-	unsigned short	Poly;
-	if(1)		Poly = 0x1021;
-	else if(0)	Poly = 0x3D65;
-	else		Poly = 0x8005;
+static void crc16Update_by_bit(unsigned short *pCrc16, unsigned char *ptr, unsigned int len) {
 	while(len-- != 0) {
 		for(unsigned char i = 0x80; i != 0; i >>= 1) {
 			*pCrc16 <<= 1;
 			if((*pCrc16&0x10000) !=0) //上一位CRC乘 2后，若首位是1，则除以 0x11021
 				*pCrc16 ^= 0x11021;
 			if((*ptr&i) != 0)    //如果本位是1，那么CRC = 上一位的CRC + 本位/CRC_CCITT
-				*pCrc16 ^= Poly;
+				*pCrc16 ^= Crc16_Poly;
 		}
 		ptr++;
 	}
@@ -170,16 +167,22 @@ static void crc_cal_by_bit(unsigned short *pCrc16, unsigned char *ptr, unsigned 
 算法概要说明：计算本字节后的CRC 码等于上一字节余式CRC码的低8位左移8位后，
 再加上上一字节CRC 右移8 位（也既取高8 位）和本字节之和后所求得的CRC码
 */
-static void crc_cal_by_byte(unsigned short *pCrc16, unsigned char* ptr, unsigned int len) {
-	while(len-- != 0) {
-		*pCrc16 = (*pCrc16 << 8) ^ crc16table[*ptr ^ (*pCrc16 >> 8)];
-		//*pCrc16 = ((*pCrc16 << 8) & 0xFFFF) ^ crc8table[(*pCrc16 >> 8) ^ (*ptr & 0xFF)];
-		ptr++;
-	}
+static void crc16Update_by_byte(unsigned short *pCrc16, unsigned char *ptr, unsigned int len) {
+	for(unsigned int i = 0; i < len; i++)
+		*pCrc16 = ((*pCrc16) << 8) ^ crc16table[((*pCrc16) >> 8) ^ ptr[i]];
+	//*pCrc16 = (*pCrc16 << 8) ^ crc16table[(*pCrc16 >> 8) ^ ptr[i]];
+		//*pCrc16 = ((*pCrc16) >> 8) ^ crc16table[(ptr[i]) ^ ((*pCrc16) & 0x00FF)];
+	
+	//result  = ((result >> 8) & 0xff) ^ CRC16Table[(result & 0xff) ^ (dataIn[i] & 0xff)];
+	// CRC16_1 = ((CRC16_1 << 8) | *point++) ^ Table_CRC16[(CRC16_1 >> 8) & 0xFF]; 
+	//*pCrc16 = (*pCrc16 >> 8) ^ crc16table[*pCrc16 ^ *ptr];
+	//*pCrc16 = (*pCrc16 << 8) ^ crc16table[((*pCrc16 >> 8) ^ *ptr) & 0xFF]; 
+	//*pCrc16 = (*pCrc16 << 8) ^ crc16table[*ptr ^ (*pCrc16 >> 8)];
+	//*pCrc16 = ((*pCrc16 << 8) & 0xFFFF) ^ crc16table[(*pCrc16 >> 8) ^ (*ptr & 0xFF)];
 }
 
 /*CRC算法三，适用于程序空间不太大且CRC计算速度又不可以太慢的微控制系统*/
-static void crc_cal_by_halfbyte(unsigned short *pCrc16, unsigned char* ptr, unsigned int len) {
+static void crc16Update_by_halfbyte(unsigned short *pCrc16, unsigned char* ptr, unsigned int len) {
 	while(len-- != 0) {
 		unsigned char high = (unsigned char)(*pCrc16/4096); //暂存CRC的高4位
 		*pCrc16 <<= 4;
@@ -191,10 +194,6 @@ static void crc_cal_by_halfbyte(unsigned short *pCrc16, unsigned char* ptr, unsi
 	}
 }
 static void icePub_makeCrc16(unsigned short *pCrc16, unsigned char *buffer,int bufferLen) {
-	unsigned short	Poly;
-	if(1)		Poly = 0x1021;
-	else if(0)	Poly = 0x3D65;
-	else		Poly = 0x8005;
 	int i = 0;
 	while (i < bufferLen) {
 		for (int j = 0; j < 8; j++) {
@@ -202,15 +201,14 @@ static void icePub_makeCrc16(unsigned short *pCrc16, unsigned char *buffer,int b
 			char bit = ((buffer[i] >> (7 - j) & 1) == 1);
 			*pCrc16 <<= 1;
 			if (c15 ^ bit)
-				*pCrc16 ^= Poly;
+				*pCrc16 ^= Crc16_Poly;
 		}
 		i++;
 	}
 }
 
 static void crc16Finish(unsigned short *pCrc16) {
-	if(1)	*pCrc16 = *pCrc16 ^ 0x0000;
-	else	*pCrc16 = *pCrc16 ^ 0xFFFF;
+	*pCrc16 ^=  Crc16_XorOut;
 }
 
 #endif
