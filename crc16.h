@@ -170,15 +170,6 @@ static void crc16Update_by_bit(unsigned short *pCrc16, unsigned char *ptr, unsig
 static void crc16Update_by_byte(unsigned short *pCrc16, unsigned char *ptr, unsigned int len) {
 	for(unsigned int i = 0; i < len; i++)
 		*pCrc16 = ((*pCrc16) << 8) ^ crc16table[((*pCrc16) >> 8) ^ ptr[i]];
-	//*pCrc16 = (*pCrc16 << 8) ^ crc16table[(*pCrc16 >> 8) ^ ptr[i]];
-		//*pCrc16 = ((*pCrc16) >> 8) ^ crc16table[(ptr[i]) ^ ((*pCrc16) & 0x00FF)];
-	
-	//result  = ((result >> 8) & 0xff) ^ CRC16Table[(result & 0xff) ^ (dataIn[i] & 0xff)];
-	// CRC16_1 = ((CRC16_1 << 8) | *point++) ^ Table_CRC16[(CRC16_1 >> 8) & 0xFF]; 
-	//*pCrc16 = (*pCrc16 >> 8) ^ crc16table[*pCrc16 ^ *ptr];
-	//*pCrc16 = (*pCrc16 << 8) ^ crc16table[((*pCrc16 >> 8) ^ *ptr) & 0xFF]; 
-	//*pCrc16 = (*pCrc16 << 8) ^ crc16table[*ptr ^ (*pCrc16 >> 8)];
-	//*pCrc16 = ((*pCrc16 << 8) & 0xFFFF) ^ crc16table[(*pCrc16 >> 8) ^ (*ptr & 0xFF)];
 }
 
 /*CRC算法三，适用于程序空间不太大且CRC计算速度又不可以太慢的微控制系统*/
