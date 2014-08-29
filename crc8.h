@@ -2,6 +2,52 @@
 #ifndef CRC8_H
 #define CRC8_H
 
+//六、CRC-8：
+//    公式：x8+x2+x+1
+//    宽度：8
+//    Poly值：0x07
+//    初始值：0x00
+//    基准输入：false
+//    基准输出：false
+//    标志位：0x00
+//
+//七、CRC8/ITU：
+//    公式：x8+x2+x+1
+//    宽度：8
+//    Poly值：0x07
+//    初始值：0x00
+//    基准输入：false
+//    基准输出：false
+//    标志位：0x55
+//
+//八、CRC-8：
+//    公式：x8+x2+x+1
+//    宽度：8
+//    Poly值：0x07
+//    初始值：0x00
+//    基准输入：false
+//    基准输出：false
+//    标志位：0x00
+//
+//九、CRC8/ROHC：
+//    公式：x8+x2+x+1
+//    宽度：8
+//    Poly值：0x07
+//    初始值：0xFF
+//    基准输入：true
+//    基准输出：true
+//    标志位：0x00
+//
+//九、CRC8/ROHC 或 DOW-CRC：
+//    公式：x8+x5+x4+1
+//    宽度：8
+//    Poly值：0x31
+//    初始值：0x00
+//    基准输入：true
+//    基准输出：true
+//    标志位：0x00
+
+
 #define GP  0x1D5     /* x^8 + x^7 + x^6 + x^4 + x^2 + 1 */
 #define DI  0xAB      //primer dato
 

@@ -54,7 +54,6 @@ unsigned long crc32table[] = {
 static void init_crc32_table(void)  {  
 	unsigned int c;  
 	unsigned int i, j;  
-	
 	for (i = 0; i < 256; i++) {  
 		c = (unsigned int)i;  
 		for (j = 0; j < 8; j++) {  
@@ -62,19 +61,19 @@ static void init_crc32_table(void)  {
 				c = 0xedb88320L ^ (c >> 1);  
 			else  
 				c = c >> 1;  
-		}  
+		}
 		crc32table[i] = c;
 	}
 }
-void crc32Init(unsigned long *pCrc32) {
+static void crc32Init(unsigned long *pCrc32) {
 	*pCrc32 = 0xFFFFFFFF;
 }
-void crc32Update(unsigned long *pCrc32, unsigned char *pData, unsigned long uSize) {
+static void crc32Update(unsigned long *pCrc32, unsigned char *pData, unsigned long uSize) {
 	unsigned long i = 0;
 	for(i = 0; i < uSize; i++)
 		*pCrc32 = ((*pCrc32) >> 8) ^ crc32table[(pData[i]) ^ ((*pCrc32) & 0x000000FF)];
 }
-void crc32Finish(unsigned long *pCrc32) {
+static void crc32Finish(unsigned long *pCrc32) {
 	*pCrc32 = ~(*pCrc32);
 	//*pCrc32 = *pCrc32 ^,0xFFFFFFFF
 }
