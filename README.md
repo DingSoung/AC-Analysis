@@ -8,6 +8,7 @@ Refer
 [HezhouW](https://github.com/HezhouW/CRC16_CCITT), 
 [htmlxx](http://blog.csdn.net/htmlxx/article/details/17369105#comments),
 [http://depa.usst.edu.cn/](http://depa.usst.edu.cn/chenjq/www2/software/crc/CRC_Javascript/CRCcalculation.htm)
+
 	#include "crc16.h"
 	#include "crc32.h"
 	int main(){
