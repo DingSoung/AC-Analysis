@@ -66,7 +66,7 @@ static void crc32Init(unsigned int *pCrc32) {
 	*pCrc32 = Crc32_Init;
 }
 static void crc32Update(unsigned int *pCrc32, unsigned char *pData, unsigned int uSize) {
-	for(unsigned long i = 0; i < uSize; i++)
+	for(unsigned int i = 0; i < uSize; i++)
 		*pCrc32 = ((*pCrc32) >> 8) ^ crc32table[(pData[i]) ^ ((*pCrc32) & 0x000000FF)];
 }
 static void crc32Finish(unsigned int *pCrc32) {
