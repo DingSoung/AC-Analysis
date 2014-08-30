@@ -1,4 +1,3 @@
-/*fork from https://github.com/ocasas/crc8*/
 #ifndef CRC8_H
 #define CRC8_H
 
