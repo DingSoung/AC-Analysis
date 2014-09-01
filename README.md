@@ -1,8 +1,11 @@
 ##DDT
 Digital Data Transmition,CRC
 
-###CRC32 CRC16 CRC8
-Usage:
+
+##CRC32 CRC16 CRC8
+use table
+###Usage:
+
 	#include "crc8.h"
 	#include "crc16.h"
 	#include "crc32.h"
@@ -34,7 +37,18 @@ Usage:
 		return 0;
 	}
 
-References:
+###Different criterion
+	refer [Wikipedia](http://en.wikipedia.org/wiki/Polynomial_representations_of_cyclic_redundancy_checks) to add a rule ,for example CRC16 IBM below, uncommant it, and commant the last one
+
+	/* CRC-16 IBM
+	#define endian16	0
+	#define Poly16_Normal	0x8005
+	#define Poly16_Mirror	0xA001
+	#define Crc16_Init	0x0000
+	#define Crc16_XorOut	0x0000
+	*/
+
+###References:
 [Wikipedia](http://en.wikipedia.org/wiki/Polynomial_representations_of_cyclic_redundancy_checks)
 [HezhouW](https://github.com/HezhouW/CRC16_CCITT), 
 [dtdns](http://www.macs123.dtdns.net/algo/cpp/cpp025.html)
