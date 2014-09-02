@@ -46,9 +46,10 @@ static void crc8Init(unsigned char *pCrc8) {
 }
 static void crc8Update(unsigned char *pCrc8, unsigned char *pData, unsigned int uSize){
 #if endian8
-	for (unsigned int i = 0; i < uSize; i++) {
-		*pCrc8 = crc8table[pData[i] ^ (*pCrc8)];
-	}
+	for (unsigned int i = 0; i < uSize; i++)
+		*pCrc8 = crc8table[pData[i] ^ *pCrc8];
+	//*pCrc8 = ((*pCrc8) << 8) ^ crc8table[(pData[i] ^ (*pCrc8 >> 0)) & 0xFF];
+	//*pCrc8 = 0 ^ crc8table[(pData[i] ^ *pCrc8) & 0xFF];
 #else
 	for(unsigned int i = 0; i < uSize; i++)
 		*pCrc8 = ((*pCrc8) >> 8) ^ crc8table[(pData[i] ^ *pCrc8) & 0xFF];
