@@ -38,9 +38,34 @@
 	rms = √(sum/f)
 
 实际计算精确的frequency需要的长度要比rms长很多倍，frequency的结果更新要比rms慢，当前要计算的rms使用的f是用包含以前的序列的，而且frequency不一定是整数，所以计算rms不能过度依赖f.就需要使用准同步计算。
+复化求积准同步系数仿真，当计算有效值时，ci为采样平方之后的系数,采样点值为Xi,有效值为A,周期采样点数为m，采样周期数为n.则电流有效值为
 
-	<...>
+	rms=√(∑(Xi * Xi * Coei)/pow(m,n))
 
+如fs为采样频率、连续等间隔采样三个周期,准同步采样算法可知应该总共采样点数和信号为
+
+	n * (fs/f - 1) + 1
+	x = √2 A * cos(2 * π/T * t)
+
+Matlab实验,修改频率f对比结果
+
+	clear all;clc  
+	fs = 4000		%采样频率
+	f  = 50;		%信号频率
+	A  = 220;		%幅度有效值
+	ph = 0;		%相位
+	dc = 0;		%直流量
+	n  = 4;		%周期数
+	m  = round(fs/f);%每个周期的点数
+	c  = [ones(1,m)];	%生成准同步系数
+	c1 = c;
+	for i = 1 : n-1
+	    c = conv(c,c1)
+	end
+	t  = 1 : n * (fs/f - 1) + 1;	%时间轴
+	x = A * sqrt(2) * cos((2 * pi)/(fs / f) * t);	%模拟波形
+	rms = sqrt(sum(x .* x .* c ) / (m ^ n))	%计算结果
+	rms2= sqrt(sum(x .* x)/(m * n))			%对比结果
 
 ###数字滤波器
 I2R数字滤波器
@@ -84,25 +109,25 @@ I2R数字滤波器
 	DC = 72;                % 直流
 	n = fs*10;              % 总的采样点数
 	t = (0:n-1)*(1/fs);     % 时间序列(时间轴)
-	x =  A1*sqrt(2)*cos(2*pi*f1*t) + A2*sqrt(2)*cos(2*pi*f2*t);   %产生信号
-	x = x + 300*randn(size(t));		% 混入噪声信号
+	x =  A1*sqrt(2)*cos(2*pi*f1*t) + A2*sqrt(2)*cos(2*pi*f2*t);	%产生信号
+	x = x + 300*randn(size(t));			% 混入噪声信号
 	subplot(311)
-	plot(t(1:1000),x(1:1000))		%显示前1000个点
+	plot(t(1:1000),x(1:1000))			%显示前1000个点
 	xlabel('time (S)')
 	subplot(312)
-	plot(t(1:200)*1000,x(1:200))	%前200个点
+	plot(t(1:200)*1000,x(1:200))			%前200个点
 	xlabel('time (mS)')
-	N = 2^nextpow2(n);      % 求得最接近总采样点的2^n,也可以是指定的长度
-	X = fft(x,N)/n;         %进行fft变换（除以总采样点数，是为了后面精确看出原始信号幅值）  
-	F = fs/2*(0,N/2);%linspace(0,fs/2,N/2+1);	%频率轴(只画到Fs/2即可，由于y为实数，后面一半是对称的)
-	subplot(313)			% 画出频率幅度图形
+	N = 2^nextpow2(n);				% 求得最接近总采样点的2^n,也可以是指定的长度
+	X = fft(x,N)/n;					% fft变换(除以总点数是为了精确看出原始信号幅值
+	F = fs/2*(0,N/2);%linspace(0,fs/2,N/2+1);	% 频率轴(只画到Fs/2即可,y为实数,一半是对称的)
+	subplot(313)					% 画出频率幅度图形
 	plot(F,2*abs(X(1:N/2+1)))
 	xlabel('Frequency (Hz)')
 	ylabel('|Y(f)|')
 
-FFTW库 大致是先用fftw_malloc分配输入输出内存，然后输入数据赋值，然后创建变换方案（fftw_plan），然后执行变换（fftw_execute），最后释放资源，还是比较简单的
+FFTW库大致是先用fftw_malloc分配输入输出内存，然后输入数据赋值，然后创建变换方案（fftw_plan），然后执行变换（fftw_execute），最后释放资源，还是比较简单的
 使用FFTW库的函数 fftw_plan_dft_r2c_1d()，另逆变换为fftw_plan_dft_c2r_1d()
-还可以针对特殊条件进行优化：固定分析的长度，如1024，将sin cos改成查表法等。再就是利用硬件优势了，如使用汇编，操作寄存器使用硬件DSP，这里不考虑。
+还可以针对特殊条件进行优化：固定分析的长度，如1024，将sin cos改成查表法等。再就是利用硬件优势了，如使用汇编，操作寄存器使用硬件DSP等
 
 	<...>
 
