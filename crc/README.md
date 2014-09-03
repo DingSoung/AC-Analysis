@@ -2,11 +2,11 @@
 use table
 
 ###Usage:
-	in c/c++ include the header file and use the functions directly. ex: main.c
-	in swift <...hold on [refer](http://www.cocoachina.com/bbs/read.php?tid=205325) ..>
+in c/c++ include the header file and use the functions directly. ex: main.c
+in swift <...hold on [refer](http://www.cocoachina.com/bbs/read.php?tid=205325) ..>
 
 ###Different criterion
-refer [Wikipedia](http://en.wikipedia.org/wiki/Polynomial_representations_of_cyclic_redundancy_checks) to add a rule ,for example CRC16 IBM below, uncommant it, and commant the last one
+refer [Wikipedia](http://en.wikipedia.org/wiki/Polynomial_representations_of_cyclic_redundancy_checks) to add a rule ,for example CRC16 IBM below, uncommant it, and commant the last one. the some examples, if I miss any， pull request is welcome
 
 	/* CRC-16 IBM
 	#define endian16	0
