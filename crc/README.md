@@ -2,37 +2,8 @@
 use table
 
 ###Usage:
-
-	#include "crc8.h"
-	#include "crc16.h"
-	#include "crc32.h"
-	int main() {
-		unsigned char dadaBuffer[] = "Hello CRC!";
-		
-		unsigned char Crc8Result2;
-		crc8Init(&Crc8Result2);
-		crc8Update_Direct(&Crc8Result2, dadaBuffer, sizeof(dadaBuffer)-1);
-		crc8Finish(&Crc8Result2);
-		
-		unsigned char Crc8Result;
-		init_crc8_table();
-		crc8Init(&Crc8Result);
-		crc8Update(&Crc8Result, dadaBuffer, sizeof(dadaBuffer)-1);
-		crc8Finish(&Crc8Result);
-		
-		unsigned short Crc16Result;
-		init_crc16_table();
-		crc16Init(&Crc16Result);
-		crc16Update(&Crc16Result, dadaBuffer, sizeof(dadaBuffer)-1);
-		crc16Finish(&Crc16Result);
-		
-		unsigned int Crc32Result;
-		init_crc32_table();
-		crc32Init(&Crc32Result);
-		crc32Update(&Crc32Result, dadaBuffer, sizeof(dadaBuffer)-1);
-		crc32Finish(&Crc32Result);
-		return 0;
-	}
+	in c/c++ include the header file and use the functions directly. ex: main.c
+	in swift <...hold on [refer](http://www.cocoachina.com/bbs/read.php?tid=205325) ..>
 
 ###Different criterion
 refer [Wikipedia](http://en.wikipedia.org/wiki/Polynomial_representations_of_cyclic_redundancy_checks) to add a rule ,for example CRC16 IBM below, uncommant it, and commant the last one
