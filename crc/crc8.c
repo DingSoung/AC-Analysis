@@ -1,9 +1,3 @@
-/*
- endian =
- 0: msb,	RefIn = TRUE,	RefOut = TRUE	Mirror_Poly
- 1: lsb,	RefIn = FALSE,	RefOut = FALSE	Normal_Poly
- */
-
 /* CRC-8-CCITT*/
 #define endian8         1
 #define Poly8_Normal	0x07

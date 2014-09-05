@@ -1,9 +1,13 @@
-###CRC32 CRC16 CRC8
+﻿###CRC32 CRC16 CRC8
 use table
 
 ###Usage:
 in c/c++ include the header file and use the functions directly. ex: main.c
 in swift <...hold on, I'll try tonight ..>
+
+	endian =
+	0: msb,	RefIn = TRUE,	RefOut = TRUE	Mirror_Poly
+	1: lsb,	RefIn = FALSE,	RefOut = FALSE	Normal_Poly
 
 ###Different criterion
 refer [Wikipedia](http://en.wikipedia.org/wiki/Polynomial_representations_of_cyclic_redundancy_checks) to add a rule ,for example CRC16 IBM below, uncommant it, and commant the last one. the some examples, if I miss any， pull request is welcome
