@@ -1,4 +1,4 @@
-###Import Header
+###Usage
 1. add "projectName-Bridging-Header.h" in Xcode project
 2. add .c and .h file to project
 3. include header file in "projectName-Bridging-Header.h"
