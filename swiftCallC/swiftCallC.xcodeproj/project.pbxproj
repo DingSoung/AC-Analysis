@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		6503228219B77C9B00F3F38D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6503228119B77C9B00F3F38D /* main.swift */; };
 		6503228A19B77CBF00F3F38D /* file.m in Sources */ = {isa = PBXBuildFile; fileRef = 6503228919B77CBF00F3F38D /* file.m */; };
-		6503228C19B77D0900F3F38D /* crc8.c in Sources */ = {isa = PBXBuildFile; fileRef = 6503228B19B77D0900F3F38D /* crc8.c */; };
+		659FFC5F19BDFD58004DB0B2 /* crc8.c in Sources */ = {isa = PBXBuildFile; fileRef = 659FFC5D19BDFD58004DB0B2 /* crc8.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,8 +29,8 @@
 		6503228119B77C9B00F3F38D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		6503228819B77CBE00F3F38D /* swiftCallC-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "swiftCallC-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		6503228919B77CBF00F3F38D /* file.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = file.m; path = swiftCallC/file.m; sourceTree = "<group>"; };
-		6503228B19B77D0900F3F38D /* crc8.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = crc8.c; path = ../../crc8.c; sourceTree = "<group>"; };
-		6503228D19B77FBD00F3F38D /* crc8.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = crc8.h; path = ../../crc8.h; sourceTree = "<group>"; };
+		659FFC5D19BDFD58004DB0B2 /* crc8.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = crc8.c; path = ../../crc/crc8.c; sourceTree = "<group>"; };
+		659FFC5E19BDFD58004DB0B2 /* crc8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = crc8.h; path = ../../crc/crc8.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,9 +64,9 @@
 		6503228019B77C9B00F3F38D /* swiftCallC */ = {
 			isa = PBXGroup;
 			children = (
+				659FFC5D19BDFD58004DB0B2 /* crc8.c */,
+				659FFC5E19BDFD58004DB0B2 /* crc8.h */,
 				6503228119B77C9B00F3F38D /* main.swift */,
-				6503228D19B77FBD00F3F38D /* crc8.h */,
-				6503228B19B77D0900F3F38D /* crc8.c */,
 				6503228819B77CBE00F3F38D /* swiftCallC-Bridging-Header.h */,
 			);
 			path = swiftCallC;
@@ -130,7 +130,7 @@
 			files = (
 				6503228219B77C9B00F3F38D /* main.swift in Sources */,
 				6503228A19B77CBF00F3F38D /* file.m in Sources */,
-				6503228C19B77D0900F3F38D /* crc8.c in Sources */,
+				659FFC5F19BDFD58004DB0B2 /* crc8.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,6 +252,7 @@
 				6503228719B77C9B00F3F38D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
