@@ -3,4 +3,3 @@
 //
 
 #include "crc8.h"
-//void crc8Init(unsigned char *pCrc8);

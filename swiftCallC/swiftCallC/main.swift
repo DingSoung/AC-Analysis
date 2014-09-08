@@ -8,11 +8,9 @@
 
 import Foundation
 
-println("Hello, World!")
-
 var dataBuffer:[UInt8] = [0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x20, 0x43, 0x52, 0x43, 0x21]
 
-var crc8 : UInt8 = 0
+var crc8 : UInt8 = 0x00
 init_crc8_table();
 crc8Init(&crc8);
 crc8Update(&crc8, &dataBuffer, (UInt32)(dataBuffer.count));
