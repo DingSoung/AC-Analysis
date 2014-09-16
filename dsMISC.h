@@ -4,8 +4,6 @@
 #include "dsp.h"
 #include <math.h>
 
-
-
 #define PI2  6.28318530717959
 #define PI   3.14159265358979
 
@@ -26,8 +24,6 @@
 #define Fs 5120
 #endif
 
-
-
 struct DATA_struct DATA = { { { 0 }, { 0 } },
 { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 },
 { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 },
@@ -35,13 +31,13 @@ struct DATA_struct DATA = { { { 0 }, { 0 } },
 unsigned short int BUFFER_SIZE = Def_BUFFER_SIZE, BUFFER_SIZE_tmp = Def_BUFFER_SIZE;
 
 const unsigned int COE_45Hz[BUFFER_SIZE_45Hz] = {
-	1, 4, 10, 20, 35, 56, 84, 120, 165, 220, 286, 364, 455, 560, 680, 816, 969, 1140, 1330, 1540, 1771,	2024, 2300, 2600, 2925, 3276, 3654, 4060, 4495, 4960, 5456, 5984, 6545, 7140, 7770, 8436, 9139,
-	9880, 10660, 11480, 12341, 13244, 14190, 15180, 16215, 17296, 18424, 19600, 20825, 22100,23426, 24804, 26235, 27720, 29260, 30856, 32509, 34220, 35990, 37820, 39711, 41664, 43680,
-	45760, 47905, 50116, 52394, 54740, 57155, 59640, 62196, 64824, 67525, 70300, 73150, 76076,79079, 82160, 85320, 88560, 91881, 95284, 98770, 102340, 105995, 109736, 113564, 117480,
-	121485, 125576, 129750, 134004, 138335, 142740, 147216, 151760, 156369, 161040, 165770,170556, 175395, 180284, 185220, 190200, 195221, 200280, 205374, 210500, 215655, 220836,226040, 231264, 236505, 241760, 247026, 252300, 257579, 262860, 268140, 273416, 278685,
-	283944, 289190, 294420, 299631, 304820, 309984, 315120, 320225, 325296, 330330, 335324,340275, 345180, 350036, 354840, 359589, 364280, 368910, 373476, 377975, 382404, 386760,
-	391040, 395241, 399360, 403394, 407340, 411195, 414956, 418620, 422184, 425645, 429000,	432246, 435380, 438399, 441300, 444080, 446736, 449265, 451664, 453930, 456060, 458051,	459900, 461604, 463160, 464565, 465816, 466910, 467844, 468615, 469220, 469656, 469920,
-	470009, 469920, 469656, 469220, 468615, 467844, 466910, 465816, 464565, 463160, 461604,	459900, 458051, 456060, 453930, 451664, 449265, 446736, 444080, 441300, 438399, 435380,
+	1, 4, 10, 20, 35, 56, 84, 120, 165, 220, 286, 364, 455, 560, 680, 816, 969, 1140, 1330, 1540, 1771, 2024, 2300, 2600, 2925, 3276, 3654, 4060, 4495, 4960, 5456, 5984, 6545, 7140, 7770, 8436, 9139,
+	9880, 10660, 11480, 12341, 13244, 14190, 15180, 16215, 17296, 18424, 19600, 20825, 22100, 23426, 24804, 26235, 27720, 29260, 30856, 32509, 34220, 35990, 37820, 39711, 41664, 43680,
+	45760, 47905, 50116, 52394, 54740, 57155, 59640, 62196, 64824, 67525, 70300, 73150, 76076, 79079, 82160, 85320, 88560, 91881, 95284, 98770, 102340, 105995, 109736, 113564, 117480,
+	121485, 125576, 129750, 134004, 138335, 142740, 147216, 151760, 156369, 161040, 165770, 170556, 175395, 180284, 185220, 190200, 195221, 200280, 205374, 210500, 215655, 220836, 226040, 231264, 236505, 241760, 247026, 252300, 257579, 262860, 268140, 273416, 278685,
+	283944, 289190, 294420, 299631, 304820, 309984, 315120, 320225, 325296, 330330, 335324, 340275, 345180, 350036, 354840, 359589, 364280, 368910, 373476, 377975, 382404, 386760,
+	391040, 395241, 399360, 403394, 407340, 411195, 414956, 418620, 422184, 425645, 429000, 432246, 435380, 438399, 441300, 444080, 446736, 449265, 451664, 453930, 456060, 458051, 459900, 461604, 463160, 464565, 465816, 466910, 467844, 468615, 469220, 469656, 469920,
+	470009, 469920, 469656, 469220, 468615, 467844, 466910, 465816, 464565, 463160, 461604, 459900, 458051, 456060, 453930, 451664, 449265, 446736, 444080, 441300, 438399, 435380,
 	432246, 429000, 425645, 422184, 418620, 414956, 411195, 407340, 403394, 399360, 395241,
 	391040, 386760, 382404, 377975, 373476, 368910, 364280, 359589, 354840, 350036, 345180,
 	340275, 335324, 330330, 325296, 320225, 315120, 309984, 304820, 299631, 294420, 289190,
@@ -155,15 +151,11 @@ const unsigned int COE_65Hz[BUFFER_SIZE_65Hz] = {
 const unsigned int *QuasiSynchronousCoefficient = &COE_50Hz[0];//coefficient=COE_50Hz
 
 
-
-
-/****Copy data and set flag***/
-void CopyADBuffer(struct DATA_struct *DATA)
-{
+/*Copy data and set flag*/
+void CopyADBuffer(struct DATA_struct *DATA) {
 	unsigned short int data;
 
-	for (data = 0; data < BUFFER_SIZE; data++)
-	{
+	for (data = 0; data < BUFFER_SIZE; data++) {
 		DATA->BUFFER_Volt[data][0] = AD.BUFFER[data][0];
 		DATA->BUFFER_Volt[data][1] = AD.BUFFER[data][2];
 		DATA->BUFFER_Volt[data][2] = AD.BUFFER[data][4];
@@ -176,20 +168,19 @@ void CopyADBuffer(struct DATA_struct *DATA)
 
 }
 
-/**********************************************
-*800mV:0x7FFF,
+/*
+800mV:0x7FFF,
 Vin:Vout=8000V:11V
 Iin:Vout=125A:1V
 
-*V =data/32767*0.8V/11*8000 (V)
-*I =data/32767*0.8V/1*125 (A)
-*
-*const float SamplingCoefficient[CHANNEL_CNT]={
-*  data/32767*0.8V/11*8000,data/32767*0.8V/11*8000,
-*    data/32767*0.8V/11*8000,data/32767*0.8V/1*125,
-*      data/32767*0.8V/1*125,data/32767*0.8V/1*125};
-*
-*************************************************/
+V =data/32767*0.8V/11*8000 (V)
+I =data/32767*0.8V/1*125 (A)
+
+const float SamplingCoefficient[CHANNEL_CNT]={
+data/32767*0.8V/11*8000,data/32767*0.8V/11*8000,
+data/32767*0.8V/11*8000,data/32767*0.8V/1*125,
+data/32767*0.8V/1*125,data/32767*0.8V/1*125};
+*/
 const float SamplingCoefficient[CHANNEL_CNT] = {
 	0.01775622369512563915469277571393, 0.01775622369512563915469277571393,
 	0.01775622369512563915469277571393, 0.00305185094759971922971282082583,
@@ -198,18 +189,17 @@ const float SamplingCoefficient[CHANNEL_CNT] = {
 float SamplingCoefficientOffsetVolt[CHANNEL_CNT / 2];
 float SamplingCoefficientOffsetAmp[CHANNEL_CNT / 2][3];
 
-/**********************************************
-*E=f(U*I)
-*E = SamplingCoefficient[U]*SamplingCoefficient[I];
-*
-*const float PowerCoefficient[CHANNEL_CNT/2]={
-*SamplingCoefficientU*SamplingCoefficientI,
-*  SamplingCoefficientU*SamplingCoefficientI,
-*    SamplingCoefficientU*SamplingCoefficientI};
-*
-*#define PowerCoefficient 215/59056
-*
-**********************************************/
+/*
+E=f(U*I)
+E = SamplingCoefficient[U]*SamplingCoefficient[I];
+
+const float PowerCoefficient[CHANNEL_CNT/2]={
+SamplingCoefficientU*SamplingCoefficientI,
+SamplingCoefficientU*SamplingCoefficientI,
+SamplingCoefficientU*SamplingCoefficientI};
+
+#define PowerCoefficient 215/59056
+*/
 const float PowerCoefficient[CHANNEL_CNT / 2] = {
 	5.4189348109761769935278712466597e-5,
 	5.4189348109761769935278712466597e-5,
@@ -219,17 +209,7 @@ float PowerCoefficientOffset[CHANNEL_CNT / 2];
 
 
 
-
-
-
-
-
-
-
-
-
-void IIRlpf_FRQ(struct DATA_struct *DATA)
-{
+void IIRlpf_FRQ(struct DATA_struct *DATA) {
 	unsigned short int data = 0;
 	unsigned char channel = 0;
 
@@ -244,28 +224,21 @@ void IIRlpf_FRQ(struct DATA_struct *DATA)
 	static unsigned short int Zero_TIM_tmp[CHANNEL_CNT / 2];
 	static short int Pre_Last_data[CHANNEL_CNT / 2];          /*store data betweet two cycle*/
 
-	/******************************IIR For Frequency*****************************/
-	for (channel = 0; channel < CHANNEL_CNT / 2; channel++)
-	{
+	/*IIR For Frequency*/
+	for (channel = 0; channel < CHANNEL_CNT / 2; channel++) {
 		/*check if zero is betweet two cycle*/
-		if (Pre_Last_data[channel] < 0 && OUT_BUFFER[0] >= 0)
-		{
-			if (Zero_CNT_Flag[channel] == 0)
-			{
+		if (Pre_Last_data[channel] < 0 && OUT_BUFFER[0] >= 0) {
+			if (Zero_CNT_Flag[channel] == 0) {
 				Zero_CNT_Flag[channel] = 1;/*Start to count zero*/
 				Zero_CNT[channel] = 0;
 				Zero_TIM_tmp[channel] = 0;
 				Zero_TIM[channel] = 0;
-			}
-			else
-			{
+			} else {
 				/*counting number of zero*/
 				Zero_CNT[channel]++;
 				Zero_TIM[channel] = ++Zero_TIM_tmp[channel];
 			}
-		}
-		else
-		{
+		} else {
 			/*Add up the time unit*/
 			Zero_TIM_tmp[channel]++;
 		}
@@ -274,32 +247,25 @@ void IIRlpf_FRQ(struct DATA_struct *DATA)
 		Pre_Last_data[channel] = OUT_BUFFER[BUFFER_SIZE - 1];
 
 		/*Check zero points in the buffer*/
-		for (data = 1; data < BUFFER_SIZE; data++)
-		{
-			if (OUT_BUFFER[data] < 0 && OUT_BUFFER[data - 1] >= 0)
-			{
-				if (Zero_CNT_Flag[channel] == 0)
-				{
+		for (data = 1; data < BUFFER_SIZE; data++) {
+			if (OUT_BUFFER[data] < 0 && OUT_BUFFER[data - 1] >= 0) {
+				if (Zero_CNT_Flag[channel] == 0) {
 					/*Start to count zero*/
 					Zero_CNT_Flag[channel] = 1;
 					Zero_CNT[channel] = 0;
 					Zero_TIM[channel] = 0;
 					Zero_TIM_tmp[channel] = 0;
-				}
-				else
-				{
+				} else {
 					/*counting number of zero*/
 					Zero_CNT[channel]++;
 					Zero_TIM[channel] = ++Zero_TIM_tmp[channel];
 				}
-			}
-			else
+			} else
 				/*Add up the time unit*/
 				Zero_TIM_tmp[channel]++;
 		}
 
-		if (Zero_CNT[channel] >= 50)
-		{
+		if (Zero_CNT[channel] >= 50) {
 			/*when count is enough at one peroid data,updata the result*/
 			/* 1.0*Zero_CNT[channel]/((Zero_TIM[channel])*0.00025); //compute length function*/
 			DATA->FRQ[channel] = 4000.0*Zero_CNT[channel] / (Zero_TIM[channel]);
@@ -313,36 +279,25 @@ void IIRlpf_FRQ(struct DATA_struct *DATA)
 
 
 
-
-
-
-
-
-
-
-/*******************************************************************************
-* Function      :quasi-synchronous sampling for RMS of U and I
-*               Normal
-*                       RMS=Sqrt((DATA[i]^2)/M)
-*               quasi-synchronous
-*                       RMS=Sqrt(∑(DATA[i]^2*Coe[i])/pow(M,CYCLE_CNT))
-* Author	: Michael Ting
-*******************************************************************************/
-void Quasi_RMS(struct DATA_struct *DATA)
-{
+/*
+quasi-synchronous sampling for RMS of U and I
+Normal
+RMS=Sqrt((DATA[i]^2)/M)
+quasi-synchronous
+RMS=Sqrt(∑(DATA[i]^2*Coe[i])/pow(M,CYCLE_CNT))
+*/
+void Quasi_RMS(struct DATA_struct *DATA) {
 	unsigned short int data = 0;
 	unsigned char channel = 0;
 
 	unsigned long long RMS_tmp[2];
 
 	/*Voit*/
-	for (channel = 0; channel < CHANNEL_CNT / 2; channel++)
-	{
+	for (channel = 0; channel < CHANNEL_CNT / 2; channel++) {
 		RMS_tmp[0] = 0;
 		RMS_tmp[1] = 0;
 
-		for (data = 0; data < BUFFER_SIZE; data++)
-		{
+		for (data = 0; data < BUFFER_SIZE; data++) {
 			//DATA->BUFFER[data][channel]=50*1.414213562373095*cos(2*3.1415926/80*data);
 			RMS_tmp[0] = DATA->BUFFER_Volt[data][channel] * DATA->BUFFER_Volt[data][channel];
 			RMS_tmp[1] += RMS_tmp[0] * QuasiSynchronousCoefficient[data];
@@ -359,13 +314,11 @@ void Quasi_RMS(struct DATA_struct *DATA)
 	}
 
 	/*Amp*/
-	for (channel = 0; channel < CHANNEL_CNT / 2; channel++)
-	{
+	for (channel = 0; channel < CHANNEL_CNT / 2; channel++) {
 		RMS_tmp[0] = 0;
 		RMS_tmp[1] = 0;
 
-		for (data = 0; data < BUFFER_SIZE; data++)
-		{
+		for (data = 0; data < BUFFER_SIZE; data++) {
 			//DATA->BUFFER[data][channel]=50*1.414213562373095*cos(2*3.1415926/80*data);
 			RMS_tmp[0] = DATA->BUFFER_Amp[data][channel] * DATA->BUFFER_Amp[data][channel];
 			RMS_tmp[1] += RMS_tmp[0] * QuasiSynchronousCoefficient[data];
@@ -385,11 +338,7 @@ void Quasi_RMS(struct DATA_struct *DATA)
 
 
 
-/*******************************************************************************
-*
-*M for numerator Order,and N for denominator Order
-*
-*******************************************************************************/
+/*M for numerator Order,and N for denominator Order*/
 const unsigned char Power_IIRI2R_M = 2, Power_IIRI2R_N = 2;
 const float Power_IIRI2R_Numerator[3] = { 0.0000098259168204820344,
 0.000019651833640964069,
@@ -397,19 +346,17 @@ const float Power_IIRI2R_Numerator[3] = { 0.0000098259168204820344,
 const float Power_IIR_denominator[3] = { 1,
 -1.9911142922016536,
 0.99115359586893537 };
-/*******************************************************************************
-* Function      :Calculate Active and Reactive Power RMS IIR Low frequency pass
-*                Filter and Plesiochronous calculations RMS
-*               P=UI*Cosφ
-*               Normal  有功功率----又叫平均功率
-*                       P=∑(U(i)*I(i))/M,
-*               quasi-synchronous
-*                       P=∑(U[i]*I[i]*Coe[i])/pow(M,CYCLE_CNT)
-* Author        : Michael Ting
-*******************************************************************************/
+/*
+Calculate Active and Reactive Power RMS IIR Low frequency pass
+Filter and Plesiochronous calculations RMS
+P=UI*Cosφ
+Normal  有功功率----又叫平均功率
+P=∑(U(i)*I(i))/M,
+quasi-synchronous
+P=∑(U[i]*I[i]*Coe[i])/pow(M,CYCLE_CNT)
+*/
 /*too large,if in function may be out of stack when use other function as sqrt()*/
-void IIRlpf_Quasi_Power(struct DATA_struct *DATA)
-{
+void IIRlpf_Quasi_Power(struct DATA_struct *DATA) {
 	unsigned short int data = 0;
 	unsigned char channel = 0;
 
@@ -417,14 +364,12 @@ void IIRlpf_Quasi_Power(struct DATA_struct *DATA)
 	//float Power_IIR_tmp;
 	//unsigned char i; 
 
-	/*****************************Active Power***********************************/
+	/*Active Power*/
 	long long Power_tmp[2];
-	for (channel = 0; channel < CHANNEL_CNT / 2; channel++)
-	{
+	for (channel = 0; channel < CHANNEL_CNT / 2; channel++) {
 		Power_tmp[0] = 0;
 		Power_tmp[1] = 0;
-		for (data = 0; data < BUFFER_SIZE; data++)
-		{
+		for (data = 0; data < BUFFER_SIZE; data++) {
 			/*32bit 7FFF*7FFF=7FFF 0001<1 0000 0000*/
 			Power_tmp[0] =
 				DATA->BUFFER_Volt[data][channel] * DATA->BUFFER_Amp[data][channel];
@@ -434,33 +379,29 @@ void IIRlpf_Quasi_Power(struct DATA_struct *DATA)
 	}
 
 
-	/***************************Reactive Power***********************************/
+	/*Reactive Power*/
 	static unsigned char PhaseOffset = Typ_PHASE_OFFSET;
 	static short int PreLastBuffer[MAX_PHASE_OFFSET][CHANNEL_CNT / 2];
 
-	for (channel = 0; channel < CHANNEL_CNT / 2; channel++)
-	{
+	for (channel = 0; channel < CHANNEL_CNT / 2; channel++) {
 		Power_tmp[0] = 0;
 		Power_tmp[1] = 0;
 
 		/*Use the last  data of U the compute the I*/
-		for (data = 0; data < PhaseOffset; data++)
-		{
+		for (data = 0; data < PhaseOffset; data++) {
 			Power_tmp[0] = PreLastBuffer[data][channel]
 				* DATA->BUFFER_Amp[data][channel];
 			Power_tmp[1] += Power_tmp[0] * QuasiSynchronousCoefficient[data];
 		}
 
-		for (data = PhaseOffset; data < BUFFER_SIZE; data++)
-		{
+		for (data = PhaseOffset; data < BUFFER_SIZE; data++) {
 			Power_tmp[0] = DATA->BUFFER_Volt[data - PhaseOffset][channel]
 				* DATA->BUFFER_Amp[data][channel];
 			Power_tmp[1] += Power_tmp[0] * QuasiSynchronousCoefficient[data];
 		}
 
 		/*store the latest data of U for the next cycle*/
-		for (data = 0; data < PhaseOffset; data++)
-		{
+		for (data = 0; data < PhaseOffset; data++) {
 			PreLastBuffer[data][channel] = DATA->BUFFER_Volt[BUFFER_SIZE - PhaseOffset][channel];
 		}
 
@@ -472,58 +413,53 @@ void IIRlpf_Quasi_Power(struct DATA_struct *DATA)
 	//#define USE_Quasi_RMS
 	//#define USE_Int_RMS
 #ifdef USE_RMS  
-	/*
 	unsigned long long Power_tmp[2];
 	for(channel=0;channel<CHANNEL_CNT/2;channel++)
 	{
-	Power_tmp[0]=0;
-	Power_tmp[1]=0;
-	for(data=0;data<BUFFER_SIZE;data++)
-	{
-	//DATA->BUFFER[data][channel]=50*1.414213562373095*cos(2*3.1415926/80*data);
-	Power_tmp[0]=POWER_BUFFER[data][channel]*POWER_BUFFER[data][channel];
-	Power_tmp[1]+=Power_tmp[0]*QuasiSynchronousCoefficient[data];
+		Power_tmp[0]=0;
+		Power_tmp[1]=0;
+		for(data=0;data<BUFFER_SIZE;data++)
+		{
+			//DATA->BUFFER[data][channel]=50*1.414213562373095*cos(2*3.1415926/80*data);
+			Power_tmp[0]=POWER_BUFFER[data][channel]*POWER_BUFFER[data][channel];
+			Power_tmp[1]+=Power_tmp[0]*QuasiSynchronousCoefficient[data];
+		}
+
+		//DATA->W[channel]=sqrt(Power_tmp/(pow(80,CYCLE_CNT)));
+		//DATA->W[channel]=sqrt(Power_tmp[1]/40960000);
+		//DATA->W[channel]=sqrt(Power_tmp[1])/6400.0;
+
+		//DATA->W[channel]*=SamplingCoefficient[channel];
+
+		DATA->W[channel]=sqrt(Power_tmp[1]/40960000)*SamplingCoefficient[channel];
 	}
 
-	//DATA->W[channel]=sqrt(Power_tmp/(pow(80,CYCLE_CNT)));
-	//DATA->W[channel]=sqrt(Power_tmp[1]/40960000);
-	//DATA->W[channel]=sqrt(Power_tmp[1])/6400.0;
-
-	//DATA->W[channel]*=SamplingCoefficient[channel];
-
-	DATA->W[channel]=sqrt(Power_tmp[1]/40960000)*SamplingCoefficient[channel];
-	}
-	*/
-
-	/*
 	unsigned long long Power_tmpE;
 	double Power_tmpF;
 	for(channel=0;channel<CHANNEL_CNT/2;channel++)
 	{
-	Power_tmpF=0;
-	Power_tmpE=0;
-	for(data=0;data<BUFFER_SIZE;data++)
-	{
-	Power_tmpE=POWER_BUFFER[data][channel]*POWER_BUFFER[data][channel];
-	Power_tmpF+=Power_tmpE;
-	//printf("rn %f",Power_tmpF);
-	}
-	DATA->W[channel]=sqrt(Power_tmpF/BUFFER_SIZE);
+		Power_tmpF=0;
+		Power_tmpE=0;
+		for(data=0;data<BUFFER_SIZE;data++)
+		{
+			Power_tmpE=POWER_BUFFER[data][channel]*POWER_BUFFER[data][channel];
+			Power_tmpF+=Power_tmpE;
+			//printf("rn %f",Power_tmpF);
+		}
+		DATA->W[channel]=sqrt(Power_tmpF/BUFFER_SIZE);
 
-	DATA->W[channel]*=PowerCoefficient[channel];
+		DATA->W[channel]*=PowerCoefficient[channel];
 
-	//DATA->W[channel]=sqrt(Power_tmpF)/6400.0*PowerCoefficient[channel];
+		//DATA->W[channel]=sqrt(Power_tmpF)/6400.0*PowerCoefficient[channel];
 	}
-	*/
+
 	unsigned long long Power_tmpE;
 	float Power_tmpF, Power_tmpG;
 
-	for (channel = 0; channel < CHANNEL_CNT; channel++)
-	{
+	for (channel = 0; channel < CHANNEL_CNT; channel++) {
 		Power_tmpE = 0;
 		Power_tmpF = 0;
-		for (data = 0; data < BUFFER_SIZE; data++)
-		{
+		for (data = 0; data < BUFFER_SIZE; data++) {
 			Power_tmpE = POWER_BUFFER[data][channel] * POWER_BUFFER[data][channel];
 			//Power_tmpG=Power_tmpE*QuasiSynchronousCoefficient[data];
 			Power_tmpF += Power_tmpE;
@@ -531,69 +467,64 @@ void IIRlpf_Quasi_Power(struct DATA_struct *DATA)
 		DATA->W[channel] = sqrt(Power_tmpF / BUFFER_SIZE)*PowerCoefficientOffset[channel];
 	}
 
-	/*IIR to  get Reactive  power
+	/*IIR to  get Reactive  power*/
 	for(channel=0;channel<CHANNEL_CNT/2;channel++)
 	{
-	for(data=0;data<BUFFER_SIZE;data++)
-	{
-	Power_IIRlpf_in[0][channel]=POWER_BUFFER[data][channel];
+		for(data=0;data<BUFFER_SIZE;data++)
+		{
+			Power_IIRlpf_in[0][channel]=POWER_BUFFER[data][channel];
 
-	Power_IIR_tmp=0;
-	for(i=0;i<=Power_IIRI2R_M;i++)
-	{
-	Power_IIR_tmp+=Power_IIRI2R_Numerator[i]*Power_IIRlpf_in[i][channel];
-	}
-	for(i=1;i<=Power_IIRI2R_N;i++)
-	{
-	Power_IIR_tmp-=Power_IIR_denominator[i]*Power_IIRlpf_out[i][channel];
-	}
+			Power_IIR_tmp=0;
+			for(i=0;i<=Power_IIRI2R_M;i++)
+			{
+				Power_IIR_tmp+=Power_IIRI2R_Numerator[i]*Power_IIRlpf_in[i][channel];
+			}
+			for(i=1;i<=Power_IIRI2R_N;i++)
+			{
+				Power_IIR_tmp-=Power_IIR_denominator[i]*Power_IIRlpf_out[i][channel];
+			}
 
-	POWER_BUFFER[data][channel]=(short int)Power_IIR_tmp;//data updated
+			POWER_BUFFER[data][channel]=(short int)Power_IIR_tmp;//data updated
 
-	for(i=Power_IIRI2R_M;i>=1;i--)
-	{
-	Power_IIRlpf_in[i][channel]=Power_IIRlpf_in[i-1][channel];
-	}
-	for(i=Power_IIRI2R_N;i>=2;i--)
-	{
-	Power_IIRlpf_out[i][channel]=Power_IIRlpf_out[i-1][channel];
-	}//for the next
+			for(i=Power_IIRI2R_M;i>=1;i--)
+			{
+				Power_IIRlpf_in[i][channel]=Power_IIRlpf_in[i-1][channel];
+			}
+			for(i=Power_IIRI2R_N;i>=2;i--)
+			{
+				Power_IIRlpf_out[i][channel]=Power_IIRlpf_out[i-1][channel];
+			}//for the next
 
-	Power_IIRlpf_out[1][channel]=POWER_BUFFER[data][channel];
+			Power_IIRlpf_out[1][channel]=POWER_BUFFER[data][channel];
+		}
 	}
-	}
-	*/
 
 	/*Calculate RMS of  reactive power*/
 
 #elif defined USE_Quasi_RMS
-	/*
 	unsigned long long Power_tmpE;
 	float Power_tmpF,Power_tmpG;
 
 	for(channel=0;channel<CHANNEL_CNT;channel++)
 	{
-	Power_tmpE=0;
-	Power_tmpF=0;
-	for(data=0;data<BUFFER_SIZE;data++)
-	{
-	Power_tmpE=POWER_BUFFER[data][channel]*POWER_BUFFER[data][channel];
-	Power_tmpG=Power_tmpE*QuasiSynchronousCoefficient[data];
-	Power_tmpF+=Power_tmpG;
+		Power_tmpE=0;
+		Power_tmpF=0;
+		for(data=0;data<BUFFER_SIZE;data++)
+		{
+			Power_tmpE=POWER_BUFFER[data][channel]*POWER_BUFFER[data][channel];
+			Power_tmpG=Power_tmpE*QuasiSynchronousCoefficient[data];
+			Power_tmpF+=Power_tmpG;
+		}
+		DATA->W[channel]=sqrt(Power_tmpF/40960000)*PowerCoefficient[channel];
 	}
-	DATA->W[channel]=sqrt(Power_tmpF/40960000)*PowerCoefficient[channel];
-	}
-	*/
 
 	unsigned long long Power_tmpE;
 	float Power_tmpF, Power_tmpG;
 
-	for (channel = 0; channel < CHANNEL_CNT; channel++)
-	{
+	for (channel = 0; channel < CHANNEL_CNT; channel++) {
 		Power_tmpE = 0;
 		Power_tmpF = 0;
-		for (data = 0; data < BUFFER_SIZE; data++)
-		{
+		for (data = 0; data < BUFFER_SIZE; data++) {
 			Power_tmpE += POWER_BUFFER[data][channel];
 
 			Power_tmpG = Power_tmpE*QuasiSynchronousCoefficient[data];
@@ -608,15 +539,13 @@ void IIRlpf_Quasi_Power(struct DATA_struct *DATA)
 	unsigned long long Power_tmpL;
 	double W_tmp;
 
-	for (channel = 0; channel < CHANNEL_CNT / 2; channel++)
-	{
+	for (channel = 0; channel < CHANNEL_CNT / 2; channel++) {
 		//Power_tmp=0;/*result of (U*I)^2 */
 		Power_tmpL = 0;/*low 32 bit of (U*I)^2*/
 		Power_tmpH = 0;/*High 32 bit of (U*I)^2*/
 		//W_tmp=0;/*High 32 bit*/
 
-		for (data = 0; data < BUFFER_SIZE; data++)
-		{
+		for (data = 0; data < BUFFER_SIZE; data++) {
 			Power_tmp = POWER_BUFFER[data][channel] * POWER_BUFFER[data][channel];
 			/*(U*I)^2*Max_Ccoe_470009>2^64 ; sepreate in two part*/
 
@@ -649,18 +578,15 @@ void IIRlpf_Quasi_Power(struct DATA_struct *DATA)
 }
 
 
-/*******************************************************************************
-* Function      :Calculate Apparent Power and Power Factor
-*               S=Urms*Irms or S=sqrt(P^2+Q^2)  V*mA
-*               COSφ=P/S                        0~1
-* Author        : Michael Ting
-*******************************************************************************/
-void SecondaryParameter(struct DATA_struct *DATA)
-{
+/*
+Calculate Apparent Power and Power Factor
+S=Urms*Irms or S=sqrt(P^2+Q^2)  V*mA
+COSφ=P/S                        0~1
+*/
+void SecondaryParameter(struct DATA_struct *DATA) {
 	unsigned char channel;
 
-	for (channel = 0; channel < CHANNEL_CNT / 2; channel++)
-	{
+	for (channel = 0; channel < CHANNEL_CNT / 2; channel++) {
 		/**Calculate Apparent Power S**/
 #define USE_UI_S
 #ifdef USE_UI_S
@@ -679,27 +605,20 @@ void SecondaryParameter(struct DATA_struct *DATA)
 
 
 
-/*******************************************************************************
-*
-*E =dataU*0.8V/32767*(500K+820)/820 * dataI*800mV/32767*(1000/100) (V*mA=mW)
-*       =SamplingCoefficient[U]*SamplingCoefficient[I];
-*
-*Sampling Frequency: 1000KHz
-*T0=1/1000KHz = >>10 *(1/1000)
-*
-*U/32767*0.8V*(500K+820)/820 * I/32767*800*(1000/100) * (BUFFERSIZE-1)*T0
-*
-*
-*******************************************************************************/
+/*
+E =dataU*0.8V/32767*(500K+820)/820 * dataI*800mV/32767*(1000/100) (V*mA=mW)
+=SamplingCoefficient[U]*SamplingCoefficient[I];
+Sampling Frequency: 1000KHz
+T0=1/1000KHz = >>10 *(1/1000)
+U/32767*0.8V*(500K+820)/820 * I/32767*800*(1000/100) * (BUFFERSIZE-1)*T0
+*/
 //const float ElectronicPowerCoefficient=>>10/1000.0
-/*******************************************************************************
-* Function      :Calculate Electronic Power
-*               W=∑(Ui*Ii*t)=(∑(Ui*Ii))*T
-*               Vr=∑(U(i-T/4)*Ii*t)=(∑(U(i-t/4)*Ii))*T
-* Author        : Michael Ting
-*******************************************************************************/
-void ElectronicPower(struct DATA_struct *DATA)
-{
+/*
+Calculate Electronic Power
+W=∑(Ui*Ii*t)=(∑(Ui*Ii))*T
+Vr=∑(U(i-T/4)*Ii*t)=(∑(U(i-t/4)*Ii))*T
+*/
+void ElectronicPower(struct DATA_struct *DATA) {
 	unsigned char channel;
 
 #define USE_QUADRANTS
@@ -717,8 +636,7 @@ void ElectronicPower(struct DATA_struct *DATA)
 	static unsigned char PhaseOffset = Typ_PHASE_OFFSET;
 	static short int PreLastBuffer[MAX_PHASE_OFFSET][CHANNEL_CNT / 2];
 
-	for (channel = 0; channel < CHANNEL_CNT / 2; channel++)
-	{
+	for (channel = 0; channel < CHANNEL_CNT / 2; channel++) {
 		/*Add up P*/
 		//ElectronicPower_tmp=0;
 		Positive_tmp = 0; Negative_tmp = 0;
@@ -728,13 +646,10 @@ void ElectronicPower(struct DATA_struct *DATA)
 			ElectronicPower_tmp =
 				DATA->BUFFER_Volt[data][channel] * DATA->BUFFER_Amp[data][channel];
 
-			if (ElectronicPower_tmp)
-			{
+			if (ElectronicPower_tmp) {
 				Positive_tmp += ElectronicPower_tmp;
 				Positive_TIM++;
-			}
-			else
-			{
+			} else {
 				Negative_tmp += ElectronicPower_tmp;
 				Negative_TIM++;
 			}
@@ -753,43 +668,34 @@ void ElectronicPower(struct DATA_struct *DATA)
 		Positive_tmp = 0; Negative_tmp = 0;
 		Positive_TIM = 0; Negative_TIM = 0;
 		/*Use the last  data of U and the I*/
-		for (data = 0; data < PhaseOffset; data++)
-		{
+		for (data = 0; data < PhaseOffset; data++) {
 			ElectronicPower_tmp =
 				PreLastBuffer[data][channel] * DATA->BUFFER_Amp[data][channel];
 
-			if (ElectronicPower_tmp)
-			{
+			if (ElectronicPower_tmp) {
 				Positive_tmp += ElectronicPower_tmp;
 				Positive_TIM++;
-			}
-			else
-			{
+			} else {
 				Negative_tmp += ElectronicPower_tmp;
 				Negative_TIM++;
 			}
 		}
 
-		for (data = PhaseOffset; data < BUFFER_SIZE; data++)
-		{
+		for (data = PhaseOffset; data < BUFFER_SIZE; data++) {
 			ElectronicPower_tmp =
 				DATA->BUFFER_Volt[data - PhaseOffset][channel] * DATA->BUFFER_Amp[data][channel];
 
-			if (ElectronicPower_tmp)
-			{
+			if (ElectronicPower_tmp) {
 				Positive_tmp += ElectronicPower_tmp;
 				Positive_TIM++;
-			}
-			else
-			{
+			} else {
 				Negative_tmp += ElectronicPower_tmp;
 				Negative_TIM++;
 			}
 		}
 
 		/*store the latest data of U for the next cycle*/
-		for (data = 0; data < PhaseOffset; data++)
-		{
+		for (data = 0; data < PhaseOffset; data++) {
 			PreLastBuffer[data][channel] = DATA->BUFFER_Volt[BUFFER_SIZE - PhaseOffset][channel];
 		}
 
@@ -807,8 +713,7 @@ void ElectronicPower(struct DATA_struct *DATA)
 	static unsigned char PhaseOffset = Typ_PHASE_OFFSET;
 	static short int PreLastBuffer[MAX_PHASE_OFFSET][CHANNEL_CNT / 2];
 
-	for (channel = 0; channel < CHANNEL_CNT / 2; channel++)
-	{
+	for (channel = 0; channel < CHANNEL_CNT / 2; channel++) {
 		/*Add up P*/
 		ElectronicPower_tmp = 0;
 		for (data = 0; data < BUFFER_SIZE; data++)/*Can share the data in a nother function*/
@@ -823,21 +728,18 @@ void ElectronicPower(struct DATA_struct *DATA)
 		ElectronicPower_tmp = 0;
 
 		/*Use the last  data of U and the I*/
-		for (data = 0; data < PhaseOffset; data++)
-		{
+		for (data = 0; data < PhaseOffset; data++) {
 			ElectronicPower_tmp +=
 				PreLastBuffer[data][channel] * DATA->BUFFER[data][channel + 3];
 		}
 
-		for (data = PhaseOffset; data < BUFFER_SIZE; data++)
-		{
+		for (data = PhaseOffset; data < BUFFER_SIZE; data++) {
 			ElectronicPower_tmp +=
 				DATA->BUFFER[data - PhaseOffset][channel] * DATA->BUFFER[data][channel + 3];
 		}
 
 		/*store the latest data of U for the next cycle*/
-		for (data = 0; data < PhaseOffset; data++)
-		{
+		for (data = 0; data < PhaseOffset; data++) {
 			PreLastBuffer[data][channel] = DATA->BUFFER[BUFFER_SIZE - PhaseOffset][channel];
 		}
 
@@ -845,8 +747,7 @@ void ElectronicPower(struct DATA_struct *DATA)
 	}
 
 #elif defined USE_PT_QT
-	for (channel = 0; channel < CHANNEL_CNT / 2; channel++)
-	{
+	for (channel = 0; channel < CHANNEL_CNT / 2; channel++) {
 		//DATA->P_POWER[channel]+=DATA->W[channel]*(BUFFER_SIZE-1)/1000000.0;
 		DATA->P_POWER[channel] += DATA->W[channel] * 0.000316;
 
@@ -857,88 +758,62 @@ void ElectronicPower(struct DATA_struct *DATA)
 }
 
 
-
-
-
-/*******************************************************************************
-* Function   :FFT Harmonic Process
-*
-* Author     : Michael Ting
-*******************************************************************************/
 #ifdef USE_DSP_LIBRARY
-void FFT_Configuration(double *pr, double *pi, int n, int k, double*fr, double*fi, int l, int il)
-{
-
+void FFT_Configuration(double *pr, double *pi, int n, int k, double*fr, double*fi, int l, int il) {
 }
 
-void FFT_Harmonic(struct DATA_struct *DATA)
-{
+void FFT_Harmonic(struct DATA_struct *DATA) {
 
 }
 #endif
 
 
 
-
-/*******************************************************************************
-* Function Name  : DMA1_Channel2_IRQHandler
-* Description    : Copy buff from AD to DATA
-* Input          : None
-* Output         : None
-* Return         : None
-*******************************************************************************/
-/*
-void _I2R_Memcpy_fast( uint32_t * to, uint32_t * from, uint32_t count)
-{
-if(count==0)
-{
-return ;
-}
-uint32_t n = (count + 7 ) / 8 ;
-switch (count % 8 )
-{
-case 0 :
-do { * to ++ = * from ++ ;
-case 7 : * to ++ = * from ++ ;
-case 6 : * to ++ = * from ++ ;
-case 5 : * to ++ = * from ++ ;
-case 4 : * to ++ = * from ++ ;
-case 3 : * to ++ = * from ++ ;
-case 2 : * to ++ = * from ++ ;
-case 1 : * to ++ = * from ++ ;
-} while ( -- n > 0 );
-}
+void _I2R_Memcpy_fast(uint32_t * to, uint32_t * from, uint32_t count) {
+	if (count == 0) {
+		return;
+	}
+	uint32_t n = (count + 7) / 8;
+	switch (count % 8) {
+	case 0:
+		do {
+			*to++ = *from++;
+	case 7: *to++ = *from++;
+	case 6: *to++ = *from++;
+	case 5: *to++ = *from++;
+	case 4: *to++ = *from++;
+	case 3: *to++ = *from++;
+	case 2: *to++ = *from++;
+	case 1: *to++ = *from++;
+		} while (--n > 0);
+	}
 }
 #include "data_prc.h"
-*/
 
 
 
-/*
+
 #include <stm32f10x.h>
-void DMA1_Channel2_IRQHandler()
-{
-if(DMA_GetITStatus(DMA1_IT_TC2))
-{
-DMA_GetCurrDataCounter(DMA1_Channel2);//Can be used to count
-DMA_ClearITPendingBit(DMA1_IT_TC2);
+void DMA1_Channel2_IRQHandler() {
+	if (DMA_GetITStatus(DMA1_IT_TC2)) {
+		DMA_GetCurrDataCounter(DMA1_Channel2);//Can be used to count
+		DMA_ClearITPendingBit(DMA1_IT_TC2);
 
-unsigned short int data;
-for(data=0;data<BUFFER_SIZE;data++)
-{
-DATA.BUFFER[data][0]=AD.BUFFER[data][0];
-DATA.BUFFER[data][1]=AD.BUFFER[data][2];
-DATA.BUFFER[data][2]=AD.BUFFER[data][4];
-DATA.BUFFER[data][3]=AD.BUFFER[data][1];
-DATA.BUFFER[data][4]=AD.BUFFER[data][3];
-DATA.BUFFER[data][5]=AD.BUFFER[data][5];
+		unsigned short int data;
+		for (data = 0; data < BUFFER_SIZE; data++) {
+			DATA.BUFFER[data][0] = AD.BUFFER[data][0];
+			DATA.BUFFER[data][1] = AD.BUFFER[data][2];
+			DATA.BUFFER[data][2] = AD.BUFFER[data][4];
+			DATA.BUFFER[data][3] = AD.BUFFER[data][1];
+			DATA.BUFFER[data][4] = AD.BUFFER[data][3];
+			DATA.BUFFER[data][5] = AD.BUFFER[data][5];
+		}
+
+		//_I2R_Memcpy_fast(DATA.BUFFER, AD.BUFFER, BUFFER_SIZE*CHANNEL_CNT);
+		AD.FLAG = SET;
+	}
 }
 
-//_I2R_Memcpy_fast(DATA.BUFFER, AD.BUFFER, BUFFER_SIZE*CHANNEL_CNT);
-AD.FLAG=SET;
-}
-}
-*/
 
 
 #endif

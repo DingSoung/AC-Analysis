@@ -1,35 +1,35 @@
+
 #ifndef DS_FFT_H
 #define DS_FFT_H
-
 
 /*
 基2实数Length长度的傅立叶变换
 pReturn进行快速傅里叶变换,结果存储在float buffer中
 */
 static void rfft(double *pReturn, unsigned int Length) {
-	int i, j, k, m, i1, i2, i3, i4, n2, n4;
+	int i, j, k, m, i1, i2, i3, i4, n1, n2, n4;
 	double a, e, cc, ss, xt, t1, t2;
-	for (j = 1, i = 1; i < 16; i++){
+	for (j = 1, i = 1; i < 16; i++) {
 		m = i;
 		j = 2 * j;
 		if (j == Length) break;
 	}
 	//逆序
 	n1 = Length - 1;
-	for (j = 0, i = 0; i < n1; i++){
-		if (i < j){
+	for (i = 0, j = 0; i < n1; i++) {
+		if (i < j) {
 			xt = pReturn[j];
 			pReturn[j] = pReturn[i];
 			pReturn[i] = xt;
 		}
 		k = Length / 2;
-		while (k <= j){
+		while (k <= j) {
 			j = j - k;
 			k = k >> 1;
 		}
 		j = j + k;
 	}
-	for (i = 0; i < Length; i += 2){
+	for (i = 0; i < Length; i += 2) {
 		xt = pReturn[i];
 		pReturn[i] = xt + pReturn[i + 1];
 		pReturn[i + 1] = xt - pReturn[i - 1];
