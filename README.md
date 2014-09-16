@@ -55,16 +55,16 @@ Matlab实验,修改频率f对比结果
 	A  = 220;		%幅度有效值
 	ph = 0;			%相位
 	dc = 0;			%直流量
-	n  = 4;			%周期数
+	n  = 4;			%周期数 >= 2
 	m  = round(fs/f);	%每个周期的点数
 	c  = [ones(1,m)];	%生成准同步系数
-	for i = 1 : n-1
-	    c = conv(c,[ones(1,m)])
+	coe = c
+	for i = 1 : n - 1		%迭代卷积n - 1次
+	    coe = conv(coe,c)
 	end
-	
 	t  = 1 : n * (fs/f - 1) + 1;			%时间轴
 	x = A * sqrt(2) * cos((2 * pi)/(fs / f) * t);	%模拟波形
-	rms = sqrt(sum(x .* x .* c ) / (m ^ n))		%计算结果
+	rms = sqrt(sum(x .* x .* coe ) / (m ^ n))		%计算结果
 	rms2= sqrt(sum(x .* x)/(m * n))			%对比结果
 
 ####数字滤波器

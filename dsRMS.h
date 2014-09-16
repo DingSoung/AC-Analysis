@@ -11,7 +11,7 @@ unsigned int convolutionLength(unsigned int ft, unsigned int gt) {
 	return ft + gt - 1;
 }
 void convolutionBuffer(int *f, unsigned int ft, int *g, unsigned int gt, int *r) {
-	int rt = ft + gt - 1;
+	unsigned int rt = ft + gt - 1;
 	unsigned int i, j;
 	for (i = 0; i < rt; i++) {
 		j = (i - gt + 1 > 0) ? (i - gt + 1) : 0;
@@ -27,20 +27,28 @@ int quasi_Init(unsigned int fs, float f) {
 	/* check frequency */
 	if (fs / f < 2) return -1;
 	/*auto get coe length, coe > 2^32 when length > xxx*/
-	unsigned int coeLength = (unsigned int)(fs/f);
-	while (coeLength < 10000){
-		coeLength = convolutionLength(coeLength,(unsigned int)(fs/f));
-		coeBuffer = (unsigned int *)malloc(coeLength);
-		if (coeBuffer == 0x00) return -1;
-		
-		
-		
-		
-	}
-	
+	unsigned int m = (unsigned int)(fs / f);
+	unsigned int *c = (unsigned int *)malloc(m);
+	if (c == 0x00) return -1;
+	for (unsigned int i = 0x00; i < m; i++)
+		c[i] = i;
 
-	
-	return 1;
+	coeLength = m;
+	coeBuffer = (unsigned int *)malloc(coeLength);
+	if (coeBuffer == 0x00) return -1;
+	for (unsigned int i = 0x00; i < coeLength; i++)
+		coeBuffer[i] = c[i];
+
+	for (unsigned int i = 0x00; i < 0x03; i++) {
+		unsigned int coeLengthTemp = coeLength;
+		unsigned int *coeBufferTemp = *coeBuffer;
+
+		coeLength = convolutionLength(coeLength, m);
+		coeBuffer = (unsigned int *)malloc(coeBuffer);
+		if (coeBuffer == 0x00) return -1;
+		convolutionBuffer(coeBufferTemp, coeLengthTemp, c, m, coeBuffer);
+		free(coeBufferTemp);
+	}
 }
 
 /*
@@ -50,22 +58,20 @@ RMS=Sqrt((DATA[i]^2)/M)
 quasi-synchronous
 RMS=Sqrt(¡Æ(DATA[i]^2*Coe[i])/pow(M,CYCLE_CNT))
 */
-float Quasi_RMS(short *pBuffer, unsigned int length) {
+float quasi_RMS(short *pBuffer, unsigned int length, unsigned int fs, float f) {
 	unsigned int i = 0;
-	unsigned long long j = 0,k = 0;
-	
+	unsigned long long j = 0, k = 0;
+
 	for (i = 0; i < length; i++) {
 		j = pBuffer[i] * pBuffer[i];
 		k += j * coeBuffer[i % coeLength];
 	}
-	return squr(k / length)
-		DATA->RMS_Volt[channel] = sqrt(RMS_tmp[1] / 40960000.0)*SamplingCoefficientOffsetVolt[channel];
+	return sqrt(k / pow((fs / f), 4));
 }
 
 int quasi_finish() {
 	free(coeBuffer);
+	return 0;
 }
-
-
 
 #endif
