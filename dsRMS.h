@@ -2,6 +2,7 @@
 #define DS_RMS_H
 
 #include "stdlib.h"
+#include "math.h"
 
 unsigned int *coeBuffer;
 unsigned short coeLength;
@@ -27,28 +28,29 @@ int quasi_Init(unsigned int fs, float f) {
 	/* check frequency */
 	if (fs / f < 2) return -1;
 	/*auto get coe length, coe > 2^32 when length > xxx*/
-	unsigned int m = (unsigned int)(fs / f);
-	unsigned int *c = (unsigned int *)malloc(m);
+	unsigned short m = (unsigned int)(fs / f);
+	unsigned int *c = (unsigned int *)malloc(m * sizeof(int));
 	if (c == 0x00) return -1;
-	for (unsigned int i = 0x00; i < m; i++)
+	for (unsigned short i = 0x00; i < m; i++)
 		c[i] = i;
 
 	coeLength = m;
-	coeBuffer = (unsigned int *)malloc(coeLength);
+	coeBuffer = (unsigned int *)malloc(coeLength * sizeof(int));
 	if (coeBuffer == 0x00) return -1;
-	for (unsigned int i = 0x00; i < coeLength; i++)
+	for (unsigned short i = 0x00; i < coeLength; i++)
 		coeBuffer[i] = c[i];
 
-	for (unsigned int i = 0x00; i < 0x03; i++) {
-		unsigned int coeLengthTemp = coeLength;
-		unsigned int *coeBufferTemp = *coeBuffer;
+	for (unsigned short i = 0x00; i < 0x03; i++) {
+		unsigned short coeLengthTemp = coeLength;
+		unsigned int *coeBufferTemp = coeBuffer;
 
 		coeLength = convolutionLength(coeLength, m);
-		coeBuffer = (unsigned int *)malloc(coeBuffer);
+		coeBuffer = (unsigned int *)malloc(coeLength * sizeof(int));
 		if (coeBuffer == 0x00) return -1;
-		convolutionBuffer(coeBufferTemp, coeLengthTemp, c, m, coeBuffer);
+		convolutionBuffer((int *)coeBufferTemp, coeLengthTemp, (int *)c, m, (int *)coeBuffer);
 		free(coeBufferTemp);
 	}
+	return 1;
 }
 
 /*
