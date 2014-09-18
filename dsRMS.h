@@ -31,13 +31,13 @@ int quasi_Init(unsigned int fs, float f) {
 	unsigned short m = (unsigned int)(fs / f);
 	unsigned int *c = (unsigned int *)malloc(m * sizeof(int));
 	if (c == 0x00) return -1;
-	for (unsigned short i = 0x00; i < m; i++)
+	for (unsigned short i = 0x00; i <= m; i++)
 		c[i] = i;
 
 	coeLength = m;
 	coeBuffer = (unsigned int *)malloc(coeLength * sizeof(int));
 	if (coeBuffer == 0x00) return -1;
-	for (unsigned short i = 0x00; i < coeLength; i++)
+	for (unsigned short i = 1; i <= coeLength; i++)
 		coeBuffer[i] = c[i];
 
 	for (unsigned short i = 0x00; i < 0x03; i++) {
@@ -53,13 +53,6 @@ int quasi_Init(unsigned int fs, float f) {
 	return 1;
 }
 
-/*
-quasi-synchronous sampling for RMS of U and I
-Normal
-RMS=Sqrt((DATA[i]^2)/M)
-quasi-synchronous
-RMS=Sqrt(¡Æ(DATA[i]^2*Coe[i])/pow(M,CYCLE_CNT))
-*/
 float quasi_RMS(short *pBuffer, unsigned int length, unsigned int fs, float f) {
 	unsigned int i = 0;
 	unsigned long long j = 0, k = 0;
@@ -68,7 +61,7 @@ float quasi_RMS(short *pBuffer, unsigned int length, unsigned int fs, float f) {
 		j = pBuffer[i] * pBuffer[i];
 		k += j * coeBuffer[i % coeLength];
 	}
-	return sqrt(k / pow((fs / f), 4));
+	return (float)sqrt(k / pow((fs / f), 4));
 }
 
 int quasi_finish() {
