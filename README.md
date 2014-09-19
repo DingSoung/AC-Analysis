@@ -56,19 +56,19 @@ Matlab实验,修改频率f对比结果
 	ph = 0;			%相位
 	dc = 0;			%直流量
 	n  = 4;			%周期数 >= 2
-	m  = round(fs/f);	%每个周期的点数
-	c  = [ones(1,m)];	%生成准同步系数
+	T  = round(fs/f);	%每个周期的点数
+	c  = [ones(1,T)];	%生成准同步系数
 	coe = c
 	for i = 1 : n - 1		%迭代卷积n - 1次
 	    coe = conv(coe,c)
 	end
-	t  = 1 : n * (fs/f - 1) + 1;			%时间轴
-	x = A * sqrt(2) * cos((2 * pi)/(fs / f) * t);	%模拟波形
-	rms = sqrt(sum(x .* x .* coe ) / (m ^ n))		%计算结果
-	rms2= sqrt(sum(x .* x)/(m * n))			%对比结果
+	t  = 1 : n * (T - 1) + 1;			%时间轴
+	x = A * sqrt(2) * cos((2 * pi)/T * t);	%模拟波形
+	rms = sqrt(sum(x .* x .* coe ) / (T ^ n))		%计算结果
+	rms2= sqrt(sum(x .* x)/(T * n))			%对比结果
 
 ####数字滤波器
-I2R数字滤波器
+IIR数字滤波器
 包括输入和输出流，参考标准算法，使用Matlab FDAtool生成滤波器参数
 没有浮点单元的，使用增益进行整形运算
 

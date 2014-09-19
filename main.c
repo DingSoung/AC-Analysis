@@ -8,12 +8,13 @@ int main(int argc, char* argv[]) {
 	if (signalBuffer == 0x00) return -1;
 	unsigned int fs = 4000;
 	float f = 50.0;
+	unsigned int T = (unsigned int)(fs / f);
 	for (unsigned int t = 0x00; t < signalLength; t++) {
-		signalBuffer[t] = (short)(1000 * sqrt(2) * cos((2 * 3.1415926) / (fs / f) * t));
+		signalBuffer[t] = (short)(1000 * sqrt(2) * cos((2 * 3.1415926) / T * t));
 	}
 
-	quasi_Init(fs, f);
-	printf("\n signal RMS = %f", quasi_RMS(signalBuffer, signalLength, fs, f));
+	quasi_init(T);
+	printf("\n signal RMS = %f", quasi_rms(signalBuffer, signalLength, T));
 	quasi_finish();
 	return 0;
 }
