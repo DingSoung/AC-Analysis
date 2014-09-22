@@ -20,13 +20,13 @@ unsigned short coeLength;
 
 int quasi_init(unsigned int T) {
 	/*auto get coeBuffer length, > 2^32 when length > xxx*/
-	unsigned int *c = (unsigned int *)malloc(T * sizeof(int));
+	unsigned int *c = (unsigned int *)malloc(T * sizeof(unsigned int));
 	if (c == 0x00) return -1;
-	for (unsigned short i = 1; i < T; i++)
-		c[i-1] = i;
+	for (unsigned short i = 0; i < T; i++)
+		c[i] = i + 1;
 
 	coeLength = T;
-	coeBuffer = (unsigned int *)malloc(coeLength * sizeof(int));
+	coeBuffer = (unsigned int *)malloc(coeLength * sizeof(unsigned int));
 	if (coeBuffer == 0x00) {
 		free(c);
 		return -1;
@@ -34,13 +34,14 @@ int quasi_init(unsigned int T) {
 	for (unsigned short i = 0; i < coeLength; i++)
 		coeBuffer[i] = c[i];
 
-
+	unsigned short coeLengthTemp;
+	unsigned int *coeBufferTemp;
 	while (1) {
-		unsigned short coeLengthTemp = coeLength;
-		unsigned int *coeBufferTemp = coeBuffer;
+		coeLengthTemp = coeLength;
+		coeBufferTemp = coeBuffer;
 
 		coeLength = convolutionLength(coeLengthTemp, T);
-		coeBuffer = (unsigned int *)malloc(coeLength * sizeof(int));
+		coeBuffer = (unsigned int *)malloc(coeLength * sizeof(unsigned int));
 		if (coeBuffer == 0x00) {
 			free(c);
 			free(coeBufferTemp);
