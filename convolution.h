@@ -1,39 +1,24 @@
 #ifndef DS_CONV_H
 #define DS_CONV_H
 
+#include "stdio.h"
+
 unsigned int convolutionLength(unsigned int ft, unsigned int gt) {
 	return ft + gt - 1;
 }
 int convolutionBuffer(int *f, unsigned int ft, int *g, unsigned int gt, int *r) {
 	unsigned int rt = ft + gt - 1;
-	unsigned int i, j;
-	/*
-	int addOn; int lastCoe;
-	for (i = 0; i < rt; i++) {
-		j = (i - gt + 1 > 0) ? (i - gt + 1) : 0;
-		ft = (ft - 1 < i) ? (ft - 1) : i;
-		while (j < ft) {
-			addOn = f[j] * g[i - j];
-			lastCoe = r[i];
-			r[i] = addOn + lastCoe;
-			if ((r[i] - lastCoe) != addOn)
-				return -1;
-			j++;
-		}
-	}
-	*/
+	unsigned int i, j, k;
 	for (i = 0; i < rt; i++) {
 		r[i] = 0x00;
-		j = ((i > gt - 1) ? (i - gt + 1) : 0);
-		ft = ((ft - 1 < i) ? (ft - 1) : i);
-		while (j < ft) {
+		k = ((ft < i + 1) ? (ft - 1) : i);
+		for (j = ((i + 1 > gt) ? (i + 1 - gt) : 0); j <= k; j++) {
 			r[i] += f[j] * g[i - j];
-			j++;
 		}
 	}
 
 
 	return 1;
-	
+
 }
 #endif

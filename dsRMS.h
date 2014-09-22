@@ -23,7 +23,7 @@ int quasi_init(unsigned int T) {
 	unsigned int *c = (unsigned int *)malloc(T * sizeof(unsigned int));
 	if (c == 0x00) return -1;
 	for (unsigned short i = 0; i < T; i++)
-		c[i] = i + 1;
+		c[i] = 1;
 
 	coeLength = T;
 	coeBuffer = (unsigned int *)malloc(coeLength * sizeof(unsigned int));
