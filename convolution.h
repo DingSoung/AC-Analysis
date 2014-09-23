@@ -16,7 +16,6 @@ int convolutionBuffer(int *f, unsigned int ft, int *g, unsigned int gt, int *r) 
 			r[i] += f[j] * g[i - j];
 		}
 		k = r[i] > k ? r[i] : k;
-		printf("%d_%d				", i, r[i]);
 	}
 	return k;
 }

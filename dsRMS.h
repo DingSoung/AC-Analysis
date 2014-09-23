@@ -46,6 +46,11 @@ int quasi_init(unsigned int cycle, unsigned int bufferLength) {
 		coeLength = coeLengthTemp;
 	}
 	free(c);
+
+	for (unsigned int i = 0; i < coeLength;i++)
+		printf("%d ", coeBuffer[i]);
+	printf("%d", coeLength);
+
 	return 1;
 }
 float quasi_rms(short *buffer, unsigned int length, unsigned int cycle) {
