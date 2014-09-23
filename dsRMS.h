@@ -18,14 +18,13 @@ double rms(short *buffer, unsigned int length) {
 unsigned int *coeBuffer;
 unsigned short coeLength;
 
-int quasi_init(unsigned int T) {
-	/*auto get coeBuffer length, > 2^32 when length > xxx*/
-	unsigned int *c = (unsigned int *)malloc(T * sizeof(unsigned int));
+int quasi_init(unsigned int cycle, unsigned int bufferLength) {
+	unsigned int *c = (unsigned int *)malloc(cycle * sizeof(unsigned int));
 	if (c == 0x00) return -1;
-	for (unsigned short i = 0; i < T; i++)
+	for (unsigned short i = 0; i < cycle; i++)
 		c[i] = 1;
 
-	coeLength = T;
+	coeLength = cycle;
 	coeBuffer = (unsigned int *)malloc(coeLength * sizeof(unsigned int));
 	if (coeBuffer == 0x00) {
 		free(c);
@@ -34,41 +33,30 @@ int quasi_init(unsigned int T) {
 	for (unsigned short i = 0; i < coeLength; i++)
 		coeBuffer[i] = c[i];
 
-	unsigned short coeLengthTemp;
-	unsigned int *coeBufferTemp;
-	while (1) {
-		coeLengthTemp = coeLength;
-		coeBufferTemp = coeBuffer;
-
-		coeLength = convolutionLength(coeLengthTemp, T);
-		coeBuffer = (unsigned int *)malloc(coeLength * sizeof(unsigned int));
-		if (coeBuffer == 0x00) {
-			free(c);
+	while (convolutionLength(coeLength, cycle) <= bufferLength) {
+		unsigned short coeLengthTemp = convolutionLength(coeLength, cycle);
+		unsigned int *coeBufferTemp = (unsigned int *)malloc(coeLengthTemp * sizeof(unsigned int));
+		if (coeBufferTemp == 0x00) break;
+		if (convolutionBuffer(coeBuffer, coeLength, c, cycle, coeBufferTemp) > 0x0FFFFFFF) {
 			free(coeBufferTemp);
-			return -1;
+			break;
 		}
-		int convStatus = convolutionBuffer(coeBufferTemp, coeLengthTemp, c, T, coeBuffer);
-		if (!convStatus) {
-			free(c);
-			free(coeBuffer);
-			coeBuffer = coeBufferTemp;
-			coeLength = coeLengthTemp;
-			
-			return 1;
-		}
-		free(coeBufferTemp);
+		free(coeBuffer);
+		coeBuffer = coeBufferTemp;
+		coeLength = coeLengthTemp;
 	}
-
+	free(c);
+	return 1;
 }
-float quasi_rms(short *buffer, unsigned int length, unsigned int T) {
-	unsigned int i = 0;
-	unsigned long long j = 0, k = 0;
-
-	for (i = 0; i < length; i++) {
-		j = buffer[i] * buffer[i];
-		k += j * coeBuffer[i % coeLength];
+float quasi_rms(short *buffer, unsigned int length, unsigned int cycle) {
+	unsigned long long temp1 = 0, temp2 = 0;
+	for (unsigned int i = 0x00; i + coeLength <= length;) {
+		for (unsigned int j = 0; j < coeLength; j++, i++) {
+			temp1 = buffer[i] * buffer[i];
+			temp2 += temp1 * coeBuffer[j];
+		}
 	}
-	return (float)sqrt(k / pow(T, 4));
+	return (float)sqrt(temp2 / pow(cycle, length/cycle));
 }
 int quasi_finish() {
 	free(coeBuffer);
