@@ -53,15 +53,15 @@ int quasi_init(unsigned int cycle, unsigned int bufferLength) {
 
 	return 1;
 }
-float quasi_rms(short *buffer, unsigned int length, unsigned int cycle) {
+float quasi_rms(short *buffer, unsigned int bufferLength, unsigned int cycle) {
 	unsigned long long temp1 = 0, temp2 = 0;
-	for (unsigned int i = 0x00; i + coeLength <= length;) {
+	for (unsigned int i = 0x00; i + coeLength <= bufferLength;) {
 		for (unsigned int j = 0; j < coeLength; j++, i++) {
 			temp1 = buffer[i] * buffer[i];
 			temp2 += temp1 * coeBuffer[j];
 		}
 	}
-	return (float)sqrt(temp2 / pow(cycle, length/cycle));
+	return (float)sqrt(temp2 / pow(cycle, bufferLength/cycle));
 }
 int quasi_finish() {
 	free(coeBuffer);
