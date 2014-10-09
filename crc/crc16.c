@@ -62,5 +62,3 @@ void crc16Update(unsigned short *pCrc16, unsigned char *pData, unsigned int uSiz
 void crc16Finish(unsigned short *pCrc16) {
 	*pCrc16 ^=  Crc16_XorOut;
 }
-
-#endif
