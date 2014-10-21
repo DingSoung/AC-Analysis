@@ -1,9 +1,17 @@
-/* CRC-16-CCITT*/
+/* CRC-16-CCITT 1D0F*/
+#define endian16	1
+#define Poly16_Normal	0x1021
+#define Poly16_Mirror	0x8408
+#define Crc16_Init	0x1D0F
+#define Crc16_XorOut	0x0000
+
+/* CRC-16-CCITT
 #define endian16	0
 #define Poly16_Normal	0x1021
 #define Poly16_Mirror	0x8408
 #define Crc16_Init	0x0000
 #define Crc16_XorOut	0x0000
+*/
 
 /* CRC-16-CCITT Xmodem
 #define endian16	1
