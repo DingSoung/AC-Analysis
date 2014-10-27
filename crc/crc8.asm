@@ -1,4 +1,4 @@
-crc8TableInit:	;output crc table start from sram 0x10, sram 0x0C wil over write
+crc8TableInit:	;output crc table start from sram 0x20, sram 0x0C wil over write
 	PUSH	R3
 	PUSH	R2
 	MOV	R3,	#0x00		;for (i = 0; i<256 ;) {
@@ -44,7 +44,7 @@ crc8TableInit:	;output crc table start from sram 0x10, sram 0x0C wil over write
 		MOV	R1,	#0x0C	;crc8table[i] = crc
 		LDR	R0,	[R1]
 		PUSH	R0
-			MOV	R0,	#0x10
+			MOV	R0,	#0x20
 			ADD	R0,	R3
 			LDR	R1,	R0
 		POP	R0
@@ -67,23 +67,24 @@ crc8Init:	;output sram 0x0C
 crc8Update:	;input 1 byte date R0, output sram 0x0B
 	PUSH	R0
 	PUSH	R1
-	MOV	R1,	#0x0C	;*pCrc8 = crc8table[pData[i] ^ *pCrc8];
-	XOR	R0,	[R1]
-	ADD	R0,	#0x10
-	LDR	R1,	R0
-	LDR	R0,	[R1]
-	MOV	R1,	#0x0C
-	LDR	[R1],	R0
+		MOV	R1,	#0x0C	;*pCrc8 = crc8table[pData[i] ^ *pCrc8];
+		AND	R0,	#0xFF
+		XOR	R0,	[R1]
+		ADD	R0,	#0x20
+		LDR	R1,	R0
+		LDR	R0,	[R1]
+		MOV	R1,	#0x0C
+		LDR	[R1],	R0
 	POP	R1
 	POP	R0
 	RET
 crc8Fihshed:	;output SRAM 0x0C
-	PUSH	R1
 	PUSH	R0
-	MOV	R0,	#0x00
-	MOV	R1,	#0x0C
-	XOR	R0,	[R1]
-	LDR	[R1],	R0
-	POP	R0
+	PUSH	R1
+		MOV	R0,	#0x00
+		MOV	R1,	#0x0C
+		XOR	R0,	[R1]
+		LDR	[R1],	R0
 	POP	R1
+	POP	R0
 	RET
