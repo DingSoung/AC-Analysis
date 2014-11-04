@@ -13,7 +13,7 @@ int main(int argc, char* argv[]) {
 		signalBuffer[t] = (short)(1000 * sqrt(2) * cos((2 * 3.1415926) / T * t));
 	}
 
-	quasi_init(T,0x400 * 16);
+	quasi_init(T, 0x400 * 16);
 	printf("\n signal RMS = %f", quasi_rms(signalBuffer, signalLength, T));
 	quasi_finish();
 	return 0;

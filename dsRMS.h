@@ -3,7 +3,6 @@
 
 #include "stdlib.h"
 #include "math.h"
-
 #include "convolution.h"
 
 double rms(short *buffer, unsigned int length) {
