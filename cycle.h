@@ -2,7 +2,7 @@
 #define DS_FREQUENCY_H
 
 // 计算buffer的平均周期,负数表示没有
-static float Cycle(short *pReturn, unsigned int Length) {
+static float cycle(short *pReturn, unsigned int Length) {
 	unsigned int len = 0, lentemp, sum = 0;
 	// 等待第一个零点
 	while (*pReturn <= *(++pReturn) && Length--);	

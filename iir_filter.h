@@ -11,7 +11,7 @@ const float b[I2R_M + 1] = {	/*分子多项式系数*/
 const float a[I2R_N + 1] = {	/*分母多项式系数*/
 	1, -0.66997394102558094, 0.25206715541542912
 };
-static void I2R_Filter(short *pReturn, unsigned int Length) {
+static void iir_filter(short *pReturn, unsigned int Length) {
 	static float in[I2R_M + 1] = { 0 };	/*输入序列*/
 	static float out[I2R_N + 1] = { 0 };	/*输出序列*/
 	int i, k;

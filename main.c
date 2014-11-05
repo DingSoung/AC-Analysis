@@ -2,7 +2,16 @@
 #include "stdlib.h"
 #include "stdio.h"
 
+
+
 int main(int argc, char* argv[]) {
+	unsigned int i = 100;
+	while (i>2) {
+		unsigned j = prime_number(i--);
+		printf(j ? "" : "%d",j );
+	}
+
+
 	unsigned int signalLength = 0x400 * 16;
 	short *signalBuffer = (short *)malloc(signalLength * sizeof(short));
 	if (signalBuffer == 0x00) return -1;
