@@ -1,5 +1,8 @@
-#include <stdio.h>
+#include <iostream>
+using namespace std;
 #include <math.h>
+#include <windows.h>
+
 #define DIM 1024
 #define DM1 (DIM-1)
 
@@ -70,17 +73,9 @@ unsigned char BL(int i, int j) {
 }
 #endif
 
-void pixel_write(int, int);
+
+
 FILE *fp;
-int main() {
-	fp = fopen("../MathPic.ppm", "wb");
-	fprintf(fp, "P6\n%d %d\n255\n", DIM, DIM);
-	for (int j = 0; j < DIM; j++)
-		for (int i = 0; i < DIM; i++)
-			pixel_write(i, j);
-	fclose(fp);
-	return 0;
-}
 void pixel_write(int i, int j) {
 	static unsigned char color[3];
 	color[0] = RD(i, j) & 255;
@@ -88,4 +83,32 @@ void pixel_write(int i, int j) {
 	color[2] = BL(i, j) & 255;
 	fwrite(color, 1, 3, fp);
 	//seek()
+}
+unsigned long WINAPI write_line(void *startLine) {
+	for (int i = (unsigned int)startLine; i < (unsigned int)startLine + (DIM >> 2); i++) {
+		for (int j = 0; j < DIM; j++)
+			pixel_write(i, j);
+	}
+	return 0;
+}
+int main() {
+	fp = fopen("../MathPic.ppm", "wb");
+	fprintf(fp, "P6\n%d %d\n255\n", DIM, DIM);
+
+	unsigned int startLine = 0;
+	void *handle[4];
+	unsigned long threadID[4];
+	for (unsigned int i = 0; i < 4; i++) {
+		handle[i] = CreateThread(0, 1024, write_line, (void *)startLine, 0, &threadID[i]);
+		cout << "thread %d created \r\n",threadID[i];
+		startLine += DIM >> 2;
+	}
+
+	WaitForSingleObject(handle[0], INFINITE);
+	WaitForSingleObject(handle[1], INFINITE);
+	WaitForSingleObject(handle[2], INFINITE);
+	WaitForSingleObject(handle[3], INFINITE);
+
+	fclose(fp);
+	return 0;
 }
