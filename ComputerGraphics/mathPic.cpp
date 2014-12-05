@@ -92,7 +92,7 @@ unsigned long WINAPI write_line(void *startLine) {
 	return 0;
 }
 int main() {
-	fp = fopen("../MathPic.ppm", "wb");
+	fp = fopen("/MathPic.ppm", "wb");
 	fprintf(fp, "P6\n%d %d\n255\n", DIM, DIM);
 
 	unsigned int startLine = 0;
