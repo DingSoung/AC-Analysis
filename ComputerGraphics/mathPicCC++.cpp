@@ -1,26 +1,36 @@
 #include <iostream>
 using namespace std;
 #include <math.h>
+#include <cstdlib>
+#include <cmath>
 #include <windows.h>// for HANDLE  
 #include <process.h>// for _beginthread()  
+#define _sq(x) ((x)*(x)) // square
+#define _cb(x) abs((x)*(x)*(x)) // absolute value of cube
+#define _cr(x) (unsigned char)(pow((x),1.0/3.0)) // cube root
+
 
 #define DIM 1024
 
 unsigned char RD(int i, int j) {
 	float s = 3. / (j + 99);
-	float y = (j + sin((i*i + sqrt(j - 700) * 5) / 100. / DIM) * 35)*s;
+	float y = (j + sin((i*i + _sq(j - 700) * 5) / 100. / DIM) * 35)*s;
 	return (int((i + DIM)*s + y) % 2 + int((DIM * 2 - i)*s + y) % 2) * 127;
 }
+
 unsigned char GR(int i, int j) {
 	float s = 3. / (j + 99);
-	float y = (j + sin((i*i + sqrt(j - 700) * 5) / 100. / DIM) * 35)*s;
+	float y = (j + sin((i*i + _sq(j - 700) * 5) / 100. / DIM) * 35)*s;
 	return (int(5 * ((i + DIM)*s + y)) % 2 + int(5 * ((DIM * 2 - i)*s + y)) % 2) * 127;
 }
+
 unsigned char BL(int i, int j) {
 	float s = 3. / (j + 99);
-	float y = (j + sin((i*i + sqrt(j - 700) * 5) / 100. / DIM) * 35)*s;
+	float y = (j + sin((i*i + _sq(j - 700) * 5) / 100. / DIM) * 35)*s;
 	return (int(29 * ((i + DIM)*s + y)) % 2 + int(29 * ((DIM * 2 - i)*s + y)) % 2) * 127;
 }
+
+
 FILE *fp;
 HANDLE handleMutex;
 
@@ -39,11 +49,11 @@ unsigned int __stdcall write_line(void* startLine) {
 unsigned long WINAPI write_line(void* startLine) {
 #endif
 	unsigned int i = (unsigned int)startLine;
-	for (; i < (unsigned int)startLine + (DIM >> 2); i++) {
+	for (i = 0; i < DIM; i++) {
 		for (int j = 0; j < DIM; j++)
 			pixel_write(j, i);
 	}
-	
+
 	return 0;
 }
 int main() {
@@ -63,9 +73,10 @@ int main() {
 	WaitForSingleObject(handle[1], -1);
 	WaitForSingleObject(handle[2], -1);
 	WaitForSingleObject(handle[3], -1);
-	
+
 	//WaitForMultipleObjects(sizeof(handle) >> 2, handle, 1, -1);
-#else
+#endif
+#if 0
 	void *handle[4];
 	unsigned long threadID[4];
 	for (unsigned int i = 0; i < 4; i++) {
@@ -76,7 +87,23 @@ int main() {
 	WaitForSingleObject(handle[1], INFINITE);
 	WaitForSingleObject(handle[2], INFINITE);
 	WaitForSingleObject(handle[3], INFINITE);
+
+	for (unsigned int i = 0; i < 4; i++) {
+		write_line((void*)(i*DIM >> 2));
+		cout << "thread %d created \r\n";
+	}
+
 #endif
+
+	for (unsigned int i = 0; i < DIM; i++) {
+		for (unsigned int j = 0; j < DIM; j++)
+			pixel_write(j, i);
+	}
+
 	fclose(fp);
 	return 0;
 }
+
+
+
+
