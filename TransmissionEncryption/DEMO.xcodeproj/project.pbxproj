@@ -10,8 +10,8 @@
 		654F923D1A7CADA4004D6C93 /* crc8.c in Sources */ = {isa = PBXBuildFile; fileRef = 654F92371A7CADA4004D6C93 /* crc8.c */; };
 		654F923E1A7CADA4004D6C93 /* crc16.c in Sources */ = {isa = PBXBuildFile; fileRef = 654F92391A7CADA4004D6C93 /* crc16.c */; };
 		654F923F1A7CADA4004D6C93 /* crc32.c in Sources */ = {isa = PBXBuildFile; fileRef = 654F923B1A7CADA4004D6C93 /* crc32.c */; };
-		654F92441A7CAE0C004D6C93 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 654F92431A7CAE0C004D6C93 /* main.c */; };
-		654F924C1A7CB301004D6C93 /* crcDemo.c in Sources */ = {isa = PBXBuildFile; fileRef = 654F924A1A7CB301004D6C93 /* crcDemo.c */; };
+		FAB8F3FC1C154BA400513A54 /* crcDemo.c in Sources */ = {isa = PBXBuildFile; fileRef = FAB8F3FA1C154BA400513A54 /* crcDemo.c */; };
+		FAB8F3FE1C154BC200513A54 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = FAB8F3FD1C154BC200513A54 /* main.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -34,9 +34,9 @@
 		654F923A1A7CADA4004D6C93 /* crc16.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = crc16.h; path = crc/crc16.h; sourceTree = SOURCE_ROOT; };
 		654F923B1A7CADA4004D6C93 /* crc32.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = crc32.c; path = crc/crc32.c; sourceTree = SOURCE_ROOT; };
 		654F923C1A7CADA4004D6C93 /* crc32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = crc32.h; path = crc/crc32.h; sourceTree = SOURCE_ROOT; };
-		654F92431A7CAE0C004D6C93 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = SOURCE_ROOT; };
-		654F924A1A7CB301004D6C93 /* crcDemo.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = crcDemo.c; sourceTree = SOURCE_ROOT; };
-		654F924B1A7CB301004D6C93 /* crcDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crcDemo.h; sourceTree = SOURCE_ROOT; };
+		FAB8F3FA1C154BA400513A54 /* crcDemo.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = crcDemo.c; path = DEMO/crcDemo.c; sourceTree = SOURCE_ROOT; };
+		FAB8F3FB1C154BA400513A54 /* crcDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = crcDemo.h; path = DEMO/crcDemo.h; sourceTree = SOURCE_ROOT; };
+		FAB8F3FD1C154BC200513A54 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = main.c; path = DEMO/main.c; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,7 +53,8 @@
 		654F920C1A7CAC6E004D6C93 = {
 			isa = PBXGroup;
 			children = (
-				654F92171A7CAC6E004D6C93 /* DDT */,
+				654F92401A7CADAF004D6C93 /* crc */,
+				654F92171A7CAC6E004D6C93 /* DEMO */,
 				654F92161A7CAC6E004D6C93 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -66,15 +67,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		654F92171A7CAC6E004D6C93 /* DDT */ = {
+		654F92171A7CAC6E004D6C93 /* DEMO */ = {
 			isa = PBXGroup;
 			children = (
-				654F92431A7CAE0C004D6C93 /* main.c */,
-				654F924A1A7CB301004D6C93 /* crcDemo.c */,
-				654F924B1A7CB301004D6C93 /* crcDemo.h */,
+				FAB8F3FD1C154BC200513A54 /* main.c */,
+				FAB8F3FA1C154BA400513A54 /* crcDemo.c */,
+				FAB8F3FB1C154BA400513A54 /* crcDemo.h */,
 				654F92451A7CB19C004D6C93 /* sha */,
-				654F92401A7CADAF004D6C93 /* crc */,
 			);
+			name = DEMO;
 			path = DDT;
 			sourceTree = "<group>";
 		};
@@ -89,6 +90,7 @@
 				654F92371A7CADA4004D6C93 /* crc8.c */,
 			);
 			name = crc;
+			path = DDT;
 			sourceTree = "<group>";
 		};
 		654F92451A7CB19C004D6C93 /* sha */ = {
@@ -132,7 +134,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 654F92101A7CAC6E004D6C93 /* Build configuration list for PBXProject "DDT" */;
+			buildConfigurationList = 654F92101A7CAC6E004D6C93 /* Build configuration list for PBXProject "DEMO" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -154,9 +156,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				654F92441A7CAE0C004D6C93 /* main.c in Sources */,
+				FAB8F3FE1C154BC200513A54 /* main.c in Sources */,
 				654F923E1A7CADA4004D6C93 /* crc16.c in Sources */,
-				654F924C1A7CB301004D6C93 /* crcDemo.c in Sources */,
+				FAB8F3FC1C154BA400513A54 /* crcDemo.c in Sources */,
 				654F923F1A7CADA4004D6C93 /* crc32.c in Sources */,
 				654F923D1A7CADA4004D6C93 /* crc8.c in Sources */,
 			);
@@ -256,7 +258,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		654F92101A7CAC6E004D6C93 /* Build configuration list for PBXProject "DDT" */ = {
+		654F92101A7CAC6E004D6C93 /* Build configuration list for PBXProject "DEMO" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				654F921A1A7CAC6E004D6C93 /* Debug */,

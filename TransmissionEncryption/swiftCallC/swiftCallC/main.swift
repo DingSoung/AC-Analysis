@@ -16,4 +16,4 @@ crc8Init(&crc8);
 crc8Update(&crc8, &dataBuffer, (UInt32)(dataBuffer.count));
 crc8Finish(&crc8);
 
-println("crc8 = \(crc8)")
+print("crc8 = \(crc8)")
